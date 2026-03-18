@@ -22,7 +22,7 @@
 					? 'text-white'
 					: 'text-zinc-400 hover:text-white'}"
 			>
-				Videos
+				Reviews
 			</a>
 		</div>
 	</div>
