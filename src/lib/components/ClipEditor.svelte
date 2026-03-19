@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { Clip, ClipEdit } from '$lib/types';
 
+	const CONTEXT_SECONDS = 3; // seconds of context before/after boundary
+
 	let {
 		clip,
 		sourceVideoUrl,
@@ -21,7 +23,10 @@
 	let notes = $state('');
 	let isPlaying = $state(false);
 	let currentTime = $state(clip.startSeconds);
-	let previewActive = $state(false);
+
+	// Preview mode: which boundary/range we're previewing
+	let previewMode = $state<'full' | 'start' | 'end' | null>(null);
+	let previewStopAt = $state<number | null>(null);
 
 	const clipDuration = $derived(newEnd - newStart);
 	const hasChanges = $derived(newStart !== clip.startSeconds || newEnd !== clip.endSeconds);
@@ -60,39 +65,75 @@
 		if (val !== null && val > newStart && val <= videoDuration) newEnd = val;
 	}
 
-	function preview() {
+	// --- Preview functions ---
+
+	/** Preview full clip from start to end */
+	function previewFull() {
 		if (!videoEl) return;
 		videoEl.currentTime = newStart;
-		previewActive = true;
+		previewMode = 'full';
+		previewStopAt = newEnd;
 		videoEl.play();
+	}
+
+	/** Preview around the start boundary: 3s before start → 3s after start */
+	function previewStart() {
+		if (!videoEl) return;
+		const from = Math.max(0, newStart - CONTEXT_SECONDS);
+		const to = newStart + CONTEXT_SECONDS;
+		videoEl.currentTime = from;
+		previewMode = 'start';
+		previewStopAt = to;
+		videoEl.play();
+	}
+
+	/** Preview around the end boundary: 3s before end → 3s after end */
+	function previewEnd() {
+		if (!videoEl) return;
+		const from = Math.max(0, newEnd - CONTEXT_SECONDS);
+		const to = Math.min(videoDuration, newEnd + CONTEXT_SECONDS);
+		videoEl.currentTime = from;
+		previewMode = 'end';
+		previewStopAt = to;
+		videoEl.play();
+	}
+
+	function stopPreview() {
+		if (!videoEl) return;
+		videoEl.pause();
+		previewMode = null;
+		previewStopAt = null;
+		isPlaying = false;
 	}
 
 	function handleTimeUpdate() {
 		if (!videoEl) return;
 		currentTime = videoEl.currentTime;
-		if (previewActive && videoEl.currentTime >= newEnd) {
-			videoEl.pause();
-			previewActive = false;
-			isPlaying = false;
+		// Auto-stop at boundary
+		if (previewStopAt !== null && videoEl.currentTime >= previewStopAt) {
+			stopPreview();
 		}
 	}
 
 	function togglePlay() {
 		if (!videoEl) return;
 		if (videoEl.paused) {
-			videoEl.currentTime = newStart;
-			previewActive = true;
+			// If no preview mode active, just play full clip
+			if (!previewMode) {
+				videoEl.currentTime = newStart;
+				previewMode = 'full';
+				previewStopAt = newEnd;
+			}
 			videoEl.play();
 			isPlaying = true;
 		} else {
-			videoEl.pause();
-			isPlaying = false;
-			previewActive = false;
+			stopPreview();
 		}
 	}
 
 	function seekToStart() {
 		if (!videoEl) return;
+		stopPreview();
 		videoEl.currentTime = newStart;
 		currentTime = newStart;
 	}
@@ -128,6 +169,17 @@
 	const rangeEndPct = $derived((newEnd / videoDuration) * 100);
 	const rangeWidthPct = $derived(rangeEndPct - rangeStartPct);
 	const playheadPct = $derived((currentTime / videoDuration) * 100);
+
+	// Preview mode label
+	const previewLabel = $derived(
+		previewMode === 'start'
+			? 'Previewing start boundary…'
+			: previewMode === 'end'
+				? 'Previewing end boundary…'
+				: previewMode === 'full'
+					? 'Previewing full clip…'
+					: null
+	);
 </script>
 
 <div class="bg-zinc-950 rounded-xl border border-indigo-500/40 p-4 space-y-4">
@@ -144,7 +196,7 @@
 			bind:this={videoEl}
 			ontimeupdate={handleTimeUpdate}
 			onplay={() => (isPlaying = true)}
-			onpause={() => (isPlaying = false)}
+			onpause={() => { isPlaying = false; }}
 			preload="metadata"
 			class="w-full h-full"
 		>
@@ -157,6 +209,14 @@
 		>
 			{fmtTime(currentTime)}
 		</div>
+		<!-- Preview mode indicator -->
+		{#if previewLabel}
+			<div
+				class="absolute top-2 left-1/2 -translate-x-1/2 bg-indigo-600/90 text-white text-xs font-medium px-3 py-1 rounded-full"
+			>
+				{previewLabel}
+			</div>
+		{/if}
 	</div>
 
 	<!-- Timeline range bar -->
@@ -209,11 +269,45 @@
 				</svg>
 			{/if}
 		</button>
+	</div>
+
+	<!-- Preview buttons — the main UX improvement -->
+	<div class="grid grid-cols-3 gap-2">
 		<button
-			onclick={preview}
-			class="px-3 py-2 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white text-xs font-medium transition-colors"
+			onclick={previewStart}
+			class="px-3 py-2 rounded-lg text-xs font-medium transition-colors
+				{previewMode === 'start'
+				? 'bg-emerald-600/30 text-emerald-400 border border-emerald-500/40'
+				: 'bg-zinc-800 text-zinc-400 hover:bg-emerald-600/10 hover:text-emerald-400'}"
 		>
-			▶ Preview Selection
+			◂ Preview Start
+			<span class="block text-[10px] opacity-60 mt-0.5">
+				{fmtTime(Math.max(0, newStart - CONTEXT_SECONDS))} → {fmtTime(newStart + CONTEXT_SECONDS)}
+			</span>
+		</button>
+		<button
+			onclick={previewFull}
+			class="px-3 py-2 rounded-lg text-xs font-medium transition-colors
+				{previewMode === 'full'
+				? 'bg-indigo-600/30 text-indigo-400 border border-indigo-500/40'
+				: 'bg-zinc-800 text-zinc-400 hover:bg-indigo-600/10 hover:text-indigo-400'}"
+		>
+			▶ Full Clip
+			<span class="block text-[10px] opacity-60 mt-0.5">
+				{fmtTime(newStart)} → {fmtTime(newEnd)}
+			</span>
+		</button>
+		<button
+			onclick={previewEnd}
+			class="px-3 py-2 rounded-lg text-xs font-medium transition-colors
+				{previewMode === 'end'
+				? 'bg-amber-600/30 text-amber-400 border border-amber-500/40'
+				: 'bg-zinc-800 text-zinc-400 hover:bg-amber-600/10 hover:text-amber-400'}"
+		>
+			Preview End ▸
+			<span class="block text-[10px] opacity-60 mt-0.5">
+				{fmtTime(Math.max(0, newEnd - CONTEXT_SECONDS))} → {fmtTime(Math.min(videoDuration, newEnd + CONTEXT_SECONDS))}
+			</span>
 		</button>
 	</div>
 
@@ -236,7 +330,7 @@
 	<!-- Timestamp controls -->
 	<div class="grid grid-cols-2 gap-4">
 		<div>
-			<label class="text-xs text-zinc-500 mb-1 block">Start</label>
+			<label for="clip-start-input" class="text-xs text-zinc-500 mb-1 block">Start</label>
 			<div class="flex items-center gap-1">
 				<button
 					onclick={() => adjustStart(-5)}
@@ -251,6 +345,7 @@
 					-2s
 				</button>
 				<input
+					id="clip-start-input"
 					type="text"
 					value={fmtTime(newStart)}
 					onchange={handleStartInput}
@@ -271,7 +366,7 @@
 			</div>
 		</div>
 		<div>
-			<label class="text-xs text-zinc-500 mb-1 block">End</label>
+			<label for="clip-end-input" class="text-xs text-zinc-500 mb-1 block">End</label>
 			<div class="flex items-center gap-1">
 				<button
 					onclick={() => adjustEnd(-5)}
@@ -286,6 +381,7 @@
 					-2s
 				</button>
 				<input
+					id="clip-end-input"
 					type="text"
 					value={fmtTime(newEnd)}
 					onchange={handleEndInput}
@@ -329,8 +425,9 @@
 
 	<!-- Notes -->
 	<div>
-		<label class="text-xs text-zinc-500 mb-1 block">Notes (optional)</label>
+		<label for="clip-notes" class="text-xs text-zinc-500 mb-1 block">Notes (optional)</label>
 		<textarea
+			id="clip-notes"
 			bind:value={notes}
 			placeholder="e.g. 'Include the verbal command before the force' or 'Trim the dead air at the start'"
 			rows="2"
