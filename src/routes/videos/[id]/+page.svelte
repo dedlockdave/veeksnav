@@ -1,14 +1,18 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import ScoreBar from '$lib/components/ScoreBar.svelte';
 	import ClipCard from '$lib/components/ClipCard.svelte';
 	import PostDraftCard from '$lib/components/PostDraftCard.svelte';
-	import type { ClipEdit } from '$lib/types';
+	import { loadReview, saveReview, loadReviewFromServer } from '$lib/stores/reviewStore';
+	import type { ClipEdit, VideoReviewState } from '$lib/types';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 	const video = data.video;
 
 	let currentStatus = $state(video.status);
+	let loaded = $state(false);
+	let saveIndicator = $state<'idle' | 'saving' | 'saved'>('idle');
 
 	// Per-clip status tracking
 	let clipStatuses = $state<Record<string, 'pending' | 'accepted' | 'rejected'>>(
@@ -19,8 +23,45 @@
 	let editingClipId = $state<string | null>(null);
 	let clipEdits = $state<Record<string, ClipEdit>>({});
 
+	// Load saved state on mount
+	onMount(async () => {
+		// Try localStorage first
+		let saved = loadReview(video.id);
+
+		// Fallback to server
+		if (!saved) {
+			saved = await loadReviewFromServer(video.id);
+		}
+
+		if (saved) {
+			currentStatus = saved.videoStatus;
+			clipStatuses = { ...clipStatuses, ...saved.clipStatuses };
+			clipEdits = saved.clipEdits ?? {};
+		}
+		loaded = true;
+	});
+
+	function persistState() {
+		const state: VideoReviewState = {
+			videoId: video.id,
+			videoStatus: currentStatus,
+			clipStatuses,
+			clipEdits,
+			updatedAt: new Date().toISOString()
+		};
+		saveReview(state);
+
+		// Visual feedback
+		saveIndicator = 'saving';
+		setTimeout(() => {
+			saveIndicator = 'saved';
+			setTimeout(() => { saveIndicator = 'idle'; }, 1500);
+		}, 300);
+	}
+
 	function handleClipStatus(clipId: string, status: 'pending' | 'accepted' | 'rejected') {
 		clipStatuses = { ...clipStatuses, [clipId]: status };
+		persistState();
 	}
 
 	function toggleEdit(clipId: string) {
@@ -30,6 +71,12 @@
 	function handleEditSave(edit: ClipEdit) {
 		clipEdits = { ...clipEdits, [edit.clipId]: edit };
 		editingClipId = null;
+		persistState();
+	}
+
+	function setVideoStatus(status: 'review' | 'approved' | 'rejected' | 'posted') {
+		currentStatus = status;
+		persistState();
 	}
 
 	const acceptedCount = $derived(
@@ -44,16 +91,19 @@
 
 	function acceptAll() {
 		clipStatuses = Object.fromEntries(video.clips.map((c) => [c.id, 'accepted' as const]));
+		persistState();
 	}
 
 	function resetAll() {
 		clipStatuses = Object.fromEntries(video.clips.map((c) => [c.id, 'pending' as const]));
 		clipEdits = {};
+		persistState();
 	}
 
 	function exportEdits() {
 		const payload = {
 			videoId: video.id,
+			videoStatus: currentStatus,
 			clipStatuses,
 			clipEdits,
 			exportedAt: new Date().toISOString()
@@ -120,6 +170,11 @@
 					>
 						{currentStatus}
 					</span>
+					{#if saveIndicator === 'saving'}
+						<span class="text-xs text-indigo-400 animate-pulse">Saving…</span>
+					{:else if saveIndicator === 'saved'}
+						<span class="text-xs text-emerald-400">✓ Saved</span>
+					{/if}
 					<span>{video.createdAt}</span>
 					<span>·</span>
 					<span>{video.duration}</span>
@@ -143,7 +198,7 @@
 			<!-- Video-level Action Buttons -->
 			<div class="flex gap-2 shrink-0">
 				<button
-					onclick={() => (currentStatus = 'approved')}
+					onclick={() => setVideoStatus('approved')}
 					class="px-4 py-2 text-sm font-medium rounded-lg transition-colors {currentStatus ===
 					'approved'
 						? 'bg-emerald-600 text-white'
@@ -152,7 +207,7 @@
 					✓ Approve
 				</button>
 				<button
-					onclick={() => (currentStatus = 'rejected')}
+					onclick={() => setVideoStatus('rejected')}
 					class="px-4 py-2 text-sm font-medium rounded-lg transition-colors {currentStatus ===
 					'rejected'
 						? 'bg-red-600 text-white'
@@ -161,7 +216,7 @@
 					✗ Reject
 				</button>
 				<button
-					onclick={() => (currentStatus = 'review')}
+					onclick={() => setVideoStatus('review')}
 					class="px-4 py-2 text-sm font-medium rounded-lg transition-colors {currentStatus ===
 					'review'
 						? 'bg-amber-600 text-white'
@@ -172,6 +227,13 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Loading indicator -->
+	{#if !loaded}
+		<div class="text-center py-4 text-zinc-500 text-sm animate-pulse">
+			Loading saved review state…
+		</div>
+	{/if}
 
 	<!-- Incident Summary -->
 	<section class="bg-zinc-900 rounded-xl border border-zinc-800 p-6">

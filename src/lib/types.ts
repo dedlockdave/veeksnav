@@ -62,3 +62,11 @@ export interface PostDraft {
 	hashtags: string[];
 	platform: string;
 }
+
+export interface VideoReviewState {
+	videoId: string;
+	videoStatus: 'review' | 'approved' | 'rejected' | 'posted';
+	clipStatuses: Record<string, 'pending' | 'accepted' | 'rejected'>;
+	clipEdits: Record<string, ClipEdit>;
+	updatedAt: string;
+}
