@@ -9,6 +9,28 @@
 
 	let currentStatus = $state(video.status);
 
+	// Per-clip status tracking
+	let clipStatuses = $state<Record<string, 'pending' | 'accepted' | 'rejected'>>(
+		Object.fromEntries(video.clips.map((c) => [c.id, c.status ?? 'pending']))
+	);
+
+	function handleClipStatus(clipId: string, status: 'pending' | 'accepted' | 'rejected') {
+		clipStatuses = { ...clipStatuses, [clipId]: status };
+	}
+
+	const acceptedCount = $derived(Object.values(clipStatuses).filter((s) => s === 'accepted').length);
+	const rejectedCount = $derived(Object.values(clipStatuses).filter((s) => s === 'rejected').length);
+	const pendingCount = $derived(Object.values(clipStatuses).filter((s) => s === 'pending').length);
+	const allReviewed = $derived(pendingCount === 0);
+
+	function acceptAll() {
+		clipStatuses = Object.fromEntries(video.clips.map((c) => [c.id, 'accepted' as const]));
+	}
+
+	function resetAll() {
+		clipStatuses = Object.fromEntries(video.clips.map((c) => [c.id, 'pending' as const]));
+	}
+
 	const statusColors: Record<string, string> = {
 		review: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
 		approved: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
@@ -82,7 +104,7 @@
 				</div>
 			</div>
 
-			<!-- Action Buttons -->
+			<!-- Video-level Action Buttons -->
 			<div class="flex gap-2 shrink-0">
 				<button
 					onclick={() => (currentStatus = 'approved')}
@@ -136,14 +158,43 @@
 		</div>
 	</section>
 
-	<!-- Clips -->
+	<!-- Clips with per-clip controls -->
 	<section>
-		<h2 class="text-lg font-semibold text-white mb-4">
-			Extracted Clips ({video.clips.length})
-		</h2>
+		<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+			<div>
+				<h2 class="text-lg font-semibold text-white">
+					Extracted Clips ({video.clips.length})
+				</h2>
+				<p class="text-sm text-zinc-400 mt-1">
+					{#if allReviewed}
+						All clips reviewed —
+						<span class="text-emerald-400">{acceptedCount} accepted</span>,
+						<span class="text-red-400">{rejectedCount} skipped</span>
+					{:else}
+						<span class="text-emerald-400">{acceptedCount} accepted</span> ·
+						<span class="text-red-400">{rejectedCount} skipped</span> ·
+						<span class="text-amber-400">{pendingCount} pending</span>
+					{/if}
+				</p>
+			</div>
+			<div class="flex gap-2 shrink-0">
+				<button
+					onclick={acceptAll}
+					class="px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-800 text-zinc-400 hover:bg-emerald-600/20 hover:text-emerald-400 transition-colors"
+				>
+					Accept All
+				</button>
+				<button
+					onclick={resetAll}
+					class="px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300 transition-colors"
+				>
+					Reset
+				</button>
+			</div>
+		</div>
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 			{#each video.clips as clip (clip.id)}
-				<ClipCard {clip} />
+				<ClipCard {clip} status={clipStatuses[clip.id]} onStatusChange={handleClipStatus} />
 			{/each}
 		</div>
 	</section>

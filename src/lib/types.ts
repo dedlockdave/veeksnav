@@ -34,6 +34,7 @@ export interface Clip {
 	timestamp: string;
 	rating: number;
 	url: string;
+	status?: 'pending' | 'accepted' | 'rejected';
 }
 
 export interface TeachableMoment {

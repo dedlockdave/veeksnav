@@ -1,17 +1,45 @@
 <script lang="ts">
 	import type { Clip } from '$lib/types';
 
-	let { clip }: { clip: Clip } = $props();
+	let {
+		clip,
+		status = 'pending',
+		onStatusChange
+	}: {
+		clip: Clip;
+		status?: 'pending' | 'accepted' | 'rejected';
+		onStatusChange?: (clipId: string, status: 'pending' | 'accepted' | 'rejected') => void;
+	} = $props();
+
+	const borderColor = $derived(
+		status === 'accepted'
+			? 'border-emerald-500/60'
+			: status === 'rejected'
+				? 'border-red-500/60 opacity-60'
+				: 'border-zinc-800'
+	);
+
+	function accept() {
+		onStatusChange?.(clip.id, status === 'accepted' ? 'pending' : 'accepted');
+	}
+
+	function reject() {
+		onStatusChange?.(clip.id, status === 'rejected' ? 'pending' : 'rejected');
+	}
 </script>
 
-<div class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden">
+<div class="bg-zinc-900 rounded-xl border-2 {borderColor} overflow-hidden transition-all">
+	<!-- Status indicator strip -->
+	{#if status === 'accepted'}
+		<div class="bg-emerald-500/20 text-emerald-400 text-xs font-medium text-center py-1">
+			✓ Accepted
+		</div>
+	{:else if status === 'rejected'}
+		<div class="bg-red-500/20 text-red-400 text-xs font-medium text-center py-1">✗ Rejected</div>
+	{/if}
+
 	<div class="aspect-video bg-black">
-		<video
-			controls
-			preload="metadata"
-			class="w-full h-full"
-			poster=""
-		>
+		<video controls preload="metadata" class="w-full h-full" poster="">
 			<source src={clip.url} type="video/mp4" />
 			<track kind="captions" />
 			Your browser does not support video playback.
@@ -39,6 +67,30 @@
 			>{clip.timestamp}</span
 		>
 		<p class="text-sm text-zinc-400 mb-2">{clip.description}</p>
-		<p class="text-sm text-zinc-300 border-l-2 border-indigo-500 pl-3 italic">{clip.assessment}</p>
+		<p class="text-sm text-zinc-300 border-l-2 border-indigo-500 pl-3 italic mb-3">
+			{clip.assessment}
+		</p>
+
+		<!-- Per-clip accept/reject -->
+		<div class="flex gap-2 pt-2 border-t border-zinc-800">
+			<button
+				onclick={accept}
+				class="flex-1 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {status ===
+				'accepted'
+					? 'bg-emerald-600 text-white'
+					: 'bg-zinc-800 text-zinc-400 hover:bg-emerald-600/20 hover:text-emerald-400'}"
+			>
+				✓ Use Clip
+			</button>
+			<button
+				onclick={reject}
+				class="flex-1 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors {status ===
+				'rejected'
+					? 'bg-red-600 text-white'
+					: 'bg-zinc-800 text-zinc-400 hover:bg-red-600/20 hover:text-red-400'}"
+			>
+				✗ Skip
+			</button>
+		</div>
 	</div>
 </div>
