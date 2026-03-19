@@ -2,6 +2,7 @@
 	import ScoreBar from '$lib/components/ScoreBar.svelte';
 	import ClipCard from '$lib/components/ClipCard.svelte';
 	import PostDraftCard from '$lib/components/PostDraftCard.svelte';
+	import type { ClipEdit } from '$lib/types';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -14,14 +15,32 @@
 		Object.fromEntries(video.clips.map((c) => [c.id, c.status ?? 'pending']))
 	);
 
+	// Per-clip editing state
+	let editingClipId = $state<string | null>(null);
+	let clipEdits = $state<Record<string, ClipEdit>>({});
+
 	function handleClipStatus(clipId: string, status: 'pending' | 'accepted' | 'rejected') {
 		clipStatuses = { ...clipStatuses, [clipId]: status };
 	}
 
-	const acceptedCount = $derived(Object.values(clipStatuses).filter((s) => s === 'accepted').length);
-	const rejectedCount = $derived(Object.values(clipStatuses).filter((s) => s === 'rejected').length);
+	function toggleEdit(clipId: string) {
+		editingClipId = editingClipId === clipId ? null : clipId;
+	}
+
+	function handleEditSave(edit: ClipEdit) {
+		clipEdits = { ...clipEdits, [edit.clipId]: edit };
+		editingClipId = null;
+	}
+
+	const acceptedCount = $derived(
+		Object.values(clipStatuses).filter((s) => s === 'accepted').length
+	);
+	const rejectedCount = $derived(
+		Object.values(clipStatuses).filter((s) => s === 'rejected').length
+	);
 	const pendingCount = $derived(Object.values(clipStatuses).filter((s) => s === 'pending').length);
 	const allReviewed = $derived(pendingCount === 0);
+	const editCount = $derived(Object.keys(clipEdits).length);
 
 	function acceptAll() {
 		clipStatuses = Object.fromEntries(video.clips.map((c) => [c.id, 'accepted' as const]));
@@ -29,6 +48,23 @@
 
 	function resetAll() {
 		clipStatuses = Object.fromEntries(video.clips.map((c) => [c.id, 'pending' as const]));
+		clipEdits = {};
+	}
+
+	function exportEdits() {
+		const payload = {
+			videoId: video.id,
+			clipStatuses,
+			clipEdits,
+			exportedAt: new Date().toISOString()
+		};
+		const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `${video.id}-review.json`;
+		a.click();
+		URL.revokeObjectURL(url);
 	}
 
 	const statusColors: Record<string, string> = {
@@ -158,7 +194,7 @@
 		</div>
 	</section>
 
-	<!-- Clips with per-clip controls -->
+	<!-- Clips with per-clip controls + editing -->
 	<section>
 		<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
 			<div>
@@ -175,9 +211,20 @@
 						<span class="text-red-400">{rejectedCount} skipped</span> ·
 						<span class="text-amber-400">{pendingCount} pending</span>
 					{/if}
+					{#if editCount > 0}
+						· <span class="text-indigo-400">{editCount} edited</span>
+					{/if}
 				</p>
 			</div>
 			<div class="flex gap-2 shrink-0">
+				{#if editCount > 0}
+					<button
+						onclick={exportEdits}
+						class="px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 hover:bg-indigo-600/30 transition-colors"
+					>
+						📤 Export Edits
+					</button>
+				{/if}
 				<button
 					onclick={acceptAll}
 					class="px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-800 text-zinc-400 hover:bg-emerald-600/20 hover:text-emerald-400 transition-colors"
@@ -194,7 +241,16 @@
 		</div>
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 			{#each video.clips as clip (clip.id)}
-				<ClipCard {clip} status={clipStatuses[clip.id]} onStatusChange={handleClipStatus} />
+				<ClipCard
+					{clip}
+					status={clipStatuses[clip.id]}
+					editing={editingClipId === clip.id}
+					sourceVideoUrl={video.sourceVideoUrl ?? ''}
+					videoDuration={video.durationSeconds ?? 900}
+					onStatusChange={handleClipStatus}
+					onEdit={toggleEdit}
+					onEditSave={handleEditSave}
+				/>
 			{/each}
 		</div>
 	</section>

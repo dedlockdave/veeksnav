@@ -7,7 +7,9 @@ export const videos: Video[] = [
 		description:
 			'Dispute over alleged online harassment and identity theft escalates to arrests for obstruction and battery on LEO.',
 		sourceUrl: 'https://www.youtube.com/watch?v=HZrxIUNNAWI',
+		sourceVideoUrl: '/videos/HZrxIUNNAWI/source.mp4', // will be Vercel Blob URL once wired
 		duration: '14:57',
+		durationSeconds: 897,
 		tags: ['use-of-force', 'obstruction', 'battery-on-leo', 'de-escalation', 'excited-utterance'],
 		createdAt: '2026-03-18',
 		status: 'review',
@@ -68,6 +70,8 @@ export const videos: Video[] = [
 				assessment:
 					'Clear excited utterance — direct admission contradicting later claims of innocence. Powerful evidence.',
 				timestamp: '00:30-00:45',
+				startSeconds: 30,
+				endSeconds: 45,
 				rating: 5,
 				url: '/videos/HZrxIUNNAWI/clip1_excited_utterance.mp4'
 			},
@@ -79,6 +83,8 @@ export const videos: Video[] = [
 				assessment:
 					'Highlights emotional/irrational state. Officer blocks bodycam view — debatable call on transparency.',
 				timestamp: '03:50-04:10',
+				startSeconds: 230,
+				endSeconds: 250,
 				rating: 5,
 				url: '/videos/HZrxIUNNAWI/clip2_proof_attempt.mp4'
 			},
@@ -90,6 +96,8 @@ export const videos: Video[] = [
 				assessment:
 					'Clear-cut battery on law enforcement officer. Immediate arrest fully justified.',
 				timestamp: '09:38-10:05',
+				startSeconds: 578,
+				endSeconds: 605,
 				rating: 5,
 				url: '/videos/HZrxIUNNAWI/clip3_spit_arrest.mp4'
 			},
@@ -101,6 +109,8 @@ export const videos: Video[] = [
 				assessment:
 					'Significant transparency concern. Deactivating during escalation raises accountability questions.',
 				timestamp: '04:20-05:00',
+				startSeconds: 260,
+				endSeconds: 300,
 				rating: 4,
 				url: '/videos/HZrxIUNNAWI/clip4_disengage_bodycam.mp4'
 			},
@@ -112,6 +122,8 @@ export const videos: Video[] = [
 				assessment:
 					'Textbook active resistance. Verbal claims of compliance contradicted by physical actions.',
 				timestamp: '07:50-08:35',
+				startSeconds: 470,
+				endSeconds: 515,
 				rating: 4,
 				url: '/videos/HZrxIUNNAWI/clip5_arrest_resistance.mp4'
 			}

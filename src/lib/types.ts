@@ -3,8 +3,10 @@ export interface Video {
 	title: string;
 	description: string;
 	sourceUrl: string;
+	sourceVideoUrl?: string; // full source video for clip editing (Vercel Blob / static)
 	thumbnail?: string;
 	duration?: string;
+	durationSeconds?: number;
 	tags: string[];
 	createdAt: string;
 	status: 'review' | 'approved' | 'rejected' | 'posted';
@@ -31,10 +33,22 @@ export interface Clip {
 	title: string;
 	description: string;
 	assessment: string;
-	timestamp: string;
+	timestamp: string; // display string e.g. "00:30-00:45"
+	startSeconds: number;
+	endSeconds: number;
 	rating: number;
 	url: string;
 	status?: 'pending' | 'accepted' | 'rejected';
+}
+
+export interface ClipEdit {
+	clipId: string;
+	originalStart: number;
+	originalEnd: number;
+	newStart: number;
+	newEnd: number;
+	notes: string;
+	submitted: boolean;
 }
 
 export interface TeachableMoment {
