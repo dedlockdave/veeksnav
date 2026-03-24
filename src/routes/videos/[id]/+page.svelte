@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { flip } from 'svelte/animate';
 	import ScoreBar from '$lib/components/ScoreBar.svelte';
 	import ClipCard from '$lib/components/ClipCard.svelte';
 	import PostDraftCard from '$lib/components/PostDraftCard.svelte';
@@ -13,6 +14,11 @@
 	let currentStatus = $state(video.status);
 	let loaded = $state(false);
 	let saveIndicator = $state<'idle' | 'saving' | 'saved'>('idle');
+	let publishState = $state<'idle' | 'publishing' | 'published' | 'error'>('idle');
+	let publishError = $state('');
+
+	// Mutable clips array so edits can update start/end times
+	let clips = $state(video.clips.map((c) => ({ ...c })));
 
 	// Per-clip status tracking
 	let clipStatuses = $state<Record<string, 'pending' | 'accepted' | 'rejected'>>(
@@ -37,6 +43,22 @@
 			currentStatus = saved.videoStatus;
 			clipStatuses = { ...clipStatuses, ...saved.clipStatuses };
 			clipEdits = saved.clipEdits ?? {};
+
+			// Apply saved edits to the mutable clips array
+			if (saved.clipEdits) {
+				clips = clips.map((c) => {
+					const edit = saved.clipEdits[c.id];
+					if (edit) {
+						return {
+							...c,
+							startSeconds: edit.newStart,
+							endSeconds: edit.newEnd,
+							timestamp: `${String(Math.floor(edit.newStart / 60)).padStart(2, '0')}:${String(edit.newStart % 60).padStart(2, '0')}-${String(Math.floor(edit.newEnd / 60)).padStart(2, '0')}:${String(edit.newEnd % 60).padStart(2, '0')}`
+						};
+					}
+					return c;
+				});
+			}
 		}
 		loaded = true;
 	});
@@ -70,6 +92,18 @@
 
 	function handleEditSave(edit: ClipEdit) {
 		clipEdits = { ...clipEdits, [edit.clipId]: edit };
+		// Update the clip's actual start/end times
+		clips = clips.map((c) => {
+			if (c.id === edit.clipId) {
+				return {
+					...c,
+					startSeconds: edit.newStart,
+					endSeconds: edit.newEnd,
+					timestamp: `${String(Math.floor(edit.newStart / 60)).padStart(2, '0')}:${String(edit.newStart % 60).padStart(2, '0')}-${String(Math.floor(edit.newEnd / 60)).padStart(2, '0')}:${String(edit.newEnd % 60).padStart(2, '0')}`
+				};
+			}
+			return c;
+		});
 		editingClipId = null;
 		persistState();
 	}
@@ -89,13 +123,23 @@
 	const allReviewed = $derived(pendingCount === 0);
 	const editCount = $derived(Object.keys(clipEdits).length);
 
+	// Sort clips: accepted first, pending middle, rejected last
+	const sortedClips = $derived(() => {
+		const order: Record<string, number> = { accepted: 0, pending: 1, rejected: 2 };
+		return [...clips].sort((a, b) => {
+			const aOrder = order[clipStatuses[a.id] ?? 'pending'] ?? 1;
+			const bOrder = order[clipStatuses[b.id] ?? 'pending'] ?? 1;
+			return aOrder - bOrder;
+		});
+	});
+
 	function acceptAll() {
-		clipStatuses = Object.fromEntries(video.clips.map((c) => [c.id, 'accepted' as const]));
+		clipStatuses = Object.fromEntries(clips.map((c) => [c.id, 'accepted' as const]));
 		persistState();
 	}
 
 	function resetAll() {
-		clipStatuses = Object.fromEntries(video.clips.map((c) => [c.id, 'pending' as const]));
+		clipStatuses = Object.fromEntries(clips.map((c) => [c.id, 'pending' as const]));
 		clipEdits = {};
 		persistState();
 	}
@@ -116,6 +160,28 @@
 		a.click();
 		URL.revokeObjectURL(url);
 	}
+
+	async function publishToQueue() {
+		publishState = 'publishing';
+		publishError = '';
+		try {
+			const res = await fetch('/api/exports', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ videoId: video.id })
+			});
+			if (!res.ok) {
+				const err = await res.json().catch(() => ({ message: 'Unknown error' }));
+				throw new Error(err.message ?? `HTTP ${res.status}`);
+			}
+			publishState = 'published';
+		} catch (e: unknown) {
+			publishState = 'error';
+			publishError = e instanceof Error ? e.message : 'Failed to publish';
+		}
+	}
+
+	const canPublish = $derived(currentStatus === 'approved' && acceptedCount > 0);
 
 	const statusColors: Record<string, string> = {
 		review: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
@@ -196,7 +262,7 @@
 			</div>
 
 			<!-- Video-level Action Buttons -->
-			<div class="flex gap-2 shrink-0">
+			<div class="flex flex-wrap gap-2 shrink-0">
 				<button
 					onclick={() => setVideoStatus('approved')}
 					class="px-4 py-2 text-sm font-medium rounded-lg transition-colors {currentStatus ===
@@ -224,6 +290,30 @@
 				>
 					↻ Revise
 				</button>
+				{#if canPublish}
+					<div class="w-px bg-zinc-700 mx-1"></div>
+					<button
+						onclick={publishToQueue}
+						disabled={publishState === 'publishing' || publishState === 'published'}
+						class="px-4 py-2 text-sm font-medium rounded-lg transition-colors
+							{publishState === 'published'
+								? 'bg-blue-600 text-white cursor-default'
+								: publishState === 'publishing'
+									? 'bg-indigo-600/50 text-indigo-300 cursor-wait'
+									: 'bg-indigo-600 text-white hover:bg-indigo-500'}"
+					>
+						{#if publishState === 'publishing'}
+							Publishing…
+						{:else if publishState === 'published'}
+							✓ Queued
+						{:else}
+							Publish to Queue
+						{/if}
+					</button>
+				{/if}
+				{#if publishState === 'error'}
+					<span class="text-xs text-red-400 self-center">{publishError}</span>
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -261,7 +351,7 @@
 		<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
 			<div>
 				<h2 class="text-lg font-semibold text-white">
-					Extracted Clips ({video.clips.length})
+					Extracted Clips ({clips.length})
 				</h2>
 				<p class="text-sm text-zinc-400 mt-1">
 					{#if allReviewed}
@@ -302,17 +392,19 @@
 			</div>
 		</div>
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-			{#each video.clips as clip (clip.id)}
-				<ClipCard
-					{clip}
-					status={clipStatuses[clip.id]}
-					editing={editingClipId === clip.id}
-					sourceVideoUrl={video.sourceVideoUrl ?? ''}
-					videoDuration={video.durationSeconds ?? 900}
-					onStatusChange={handleClipStatus}
-					onEdit={toggleEdit}
-					onEditSave={handleEditSave}
-				/>
+			{#each sortedClips() as clip (clip.id)}
+				<div animate:flip={{ duration: 400 }}>
+					<ClipCard
+						{clip}
+						status={clipStatuses[clip.id]}
+						editing={editingClipId === clip.id}
+						sourceVideoUrl={video.sourceVideoUrl ?? ''}
+						videoDuration={video.durationSeconds ?? 900}
+						onStatusChange={handleClipStatus}
+						onEdit={toggleEdit}
+						onEditSave={handleEditSave}
+					/>
+				</div>
 			{/each}
 		</div>
 	</section>

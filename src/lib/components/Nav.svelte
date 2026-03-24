@@ -24,6 +24,14 @@
 			>
 				Reviews
 			</a>
+			<a
+				href="/queue"
+				class="transition-colors {page.url.pathname.startsWith('/queue')
+					? 'text-white'
+					: 'text-zinc-400 hover:text-white'}"
+			>
+				Queue
+			</a>
 		</div>
 	</div>
 </nav>

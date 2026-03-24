@@ -70,3 +70,38 @@ export interface VideoReviewState {
 	clipEdits: Record<string, ClipEdit>;
 	updatedAt: string;
 }
+
+/** Self-contained payload for downstream post-creation agent */
+export interface VideoExport {
+	videoId: string;
+	title: string;
+	description: string;
+	sourceUrl: string;
+	sourceVideoUrl?: string;
+	duration?: string;
+	durationSeconds?: number;
+	tags: string[];
+	summary: string;
+	scorecard: VideoAnalysis['scorecard'];
+	clips: ExportClip[];
+	teachableMoments: TeachableMoment[];
+	postDrafts: PostDraft[];
+	status: 'queued' | 'processing' | 'posted' | 'failed';
+	publishedAt: string;
+	updatedAt: string;
+}
+
+/** Clip with edits already applied — ready for downstream use */
+export interface ExportClip {
+	id: string;
+	title: string;
+	description: string;
+	assessment: string;
+	timestamp: string;
+	startSeconds: number;
+	endSeconds: number;
+	rating: number;
+	url: string;
+	editNotes?: string;
+	wasEdited: boolean;
+}

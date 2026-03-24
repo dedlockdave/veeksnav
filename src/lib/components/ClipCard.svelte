@@ -31,8 +31,16 @@
 			: status === 'accepted'
 				? 'border-emerald-500/60'
 				: status === 'rejected'
-					? 'border-red-500/60 opacity-60'
+					? 'border-red-500/60'
 					: 'border-zinc-800'
+	);
+
+	const cardStyle = $derived(
+		status === 'rejected'
+			? 'opacity-50 grayscale'
+			: status === 'accepted'
+				? 'ring-1 ring-emerald-500/20'
+				: ''
 	);
 
 	function accept() {
@@ -50,7 +58,7 @@
 	}
 </script>
 
-<div class="bg-zinc-900 rounded-xl border-2 {borderColor} overflow-hidden transition-all">
+<div class="bg-zinc-900 rounded-xl border-2 {borderColor} overflow-hidden transition-all duration-400 {cardStyle}">
 	<!-- Status indicator strip -->
 	{#if hasEdits && !editing}
 		<div class="bg-indigo-500/20 text-indigo-400 text-xs font-medium text-center py-1">
