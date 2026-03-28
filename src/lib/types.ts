@@ -91,6 +91,119 @@ export interface VideoExport {
 	updatedAt: string;
 }
 
+// ── Journal ────────────────────────────────────────────────────────────────
+
+export interface JournalEntry {
+	entryId: string;
+	threadId: string;
+	author: 'david' | 'claw';
+	content: string;
+	topics: JournalTopicRef[];
+	createdAt: string;
+}
+
+export interface JournalTopicRef {
+	topicId: string;
+	name: string;
+	confidence: number;
+}
+
+export interface JournalTopic {
+	topicId: string;
+	name: string;
+	description: string;
+	color: string;
+	entryCount: number;
+	latestEntryAt: string;
+}
+
+// ── Gateway ───────────────────────────────────────────────────────────────
+
+export interface GatewayCronJob {
+	id: string;
+	agentId: string;
+	sessionKey: string;
+	name: string;
+	enabled: boolean;
+	createdAtMs: number;
+	updatedAtMs: number;
+	schedule: {
+		kind: string;
+		expr: string;
+		tz: string;
+		staggerMs?: number;
+	};
+	sessionTarget: string;
+	wakeMode: string;
+	payload: {
+		kind: string;
+		message: string;
+		model?: string;
+		timeoutSeconds?: number;
+	};
+	delivery: {
+		mode: string;
+		channel?: string;
+		channelId?: string;
+	};
+	state: GatewayCronJobState;
+}
+
+export interface GatewayCronJobState {
+	nextRunAtMs: number;
+	lastRunAtMs: number;
+	lastRunStatus: string;
+	lastDurationMs: number;
+	lastDeliveryStatus: string;
+	consecutiveErrors: number;
+	lastError?: string | null;
+}
+
+export interface GatewayCronRun {
+	ts: number;
+	jobId: string;
+	action: string;
+	status: string;
+	summary?: string;
+	error?: string;
+	durationMs: number;
+	deliveryStatus?: string;
+	sessionId?: string;
+	model?: string;
+	provider?: string;
+	usage?: {
+		input_tokens: number;
+		output_tokens: number;
+		total_tokens?: number;
+	};
+}
+
+export interface GatewaySession {
+	sessionKey: string;
+	sessionId: string;
+	updatedAt: number;
+	chatType?: string;
+	channel?: string;
+	origin?: {
+		label?: string;
+		provider?: string;
+	};
+	deliveryContext?: {
+		to?: string;
+		channel?: string;
+		channelId?: string;
+	};
+	model?: string;
+	contextTokens?: number;
+	inputTokens?: number;
+	outputTokens?: number;
+}
+
+export interface GatewayHeartbeatConfig {
+	every: string;
+	model?: string;
+}
+
 /** Clip with edits already applied — ready for downstream use */
 export interface ExportClip {
 	id: string;

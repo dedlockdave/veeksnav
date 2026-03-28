@@ -32,6 +32,22 @@
 			>
 				Queue
 			</a>
+			<a
+				href="/journal"
+				class="transition-colors {page.url.pathname.startsWith('/journal')
+					? 'text-white'
+					: 'text-zinc-400 hover:text-white'}"
+			>
+				Journal
+			</a>
+			<a
+				href="/gateway"
+				class="transition-colors {page.url.pathname.startsWith('/gateway')
+					? 'text-white'
+					: 'text-zinc-400 hover:text-white'}"
+			>
+				Gateway
+			</a>
 		</div>
 	</div>
 </nav>
