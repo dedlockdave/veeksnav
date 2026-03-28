@@ -14,9 +14,9 @@
 	} = $props();
 </script>
 
-<div class="bg-zinc-900 rounded-xl border border-zinc-800 p-5">
-	<h2 class="text-sm font-medium text-zinc-400 uppercase tracking-wider mb-4">Agent Heartbeat</h2>
-	<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-zinc-900 rounded-xl border border-zinc-800 p-4 sm:p-5">
+	<h2 class="text-sm font-medium text-zinc-400 uppercase tracking-wider mb-3 sm:mb-4">Agent Heartbeat</h2>
+	<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
 		<div>
 			<p class="text-xs text-zinc-500">Interval</p>
 			<p class="text-lg font-semibold text-white mt-0.5">

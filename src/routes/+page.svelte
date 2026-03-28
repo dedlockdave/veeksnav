@@ -4,11 +4,11 @@
 	const reviewCount = videos.filter((v) => v.status === 'review').length;
 </script>
 
-<section class="py-16 text-center">
-	<h1 class="text-5xl font-bold tracking-tight mb-4">
+<section class="py-10 sm:py-16 text-center">
+	<h1 class="text-3xl sm:text-5xl font-bold tracking-tight mb-4">
 		Veeks<span class="text-indigo-400">Nav</span>
 	</h1>
-	<p class="text-zinc-400 text-lg max-w-xl mx-auto mb-8">
+	<p class="text-zinc-400 text-base sm:text-lg max-w-sm sm:max-w-xl mx-auto mb-8">
 		Content review dashboard. Analyze bodycam footage, review clips, and approve posts.
 	</p>
 	<a

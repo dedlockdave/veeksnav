@@ -34,15 +34,15 @@
 	};
 </script>
 
-<div class="flex items-center gap-4 px-4 py-3 border-b border-zinc-800 last:border-b-0">
-	<span class="text-xs font-medium {channelColors[channelLabel(session)] ?? 'text-zinc-500'}">
+<div class="flex items-center gap-2 sm:gap-4 px-3 sm:px-4 py-2.5 sm:py-3 border-b border-zinc-800 last:border-b-0">
+	<span class="text-xs font-medium shrink-0 {channelColors[channelLabel(session)] ?? 'text-zinc-500'}">
 		{channelLabel(session)}
 	</span>
-	<span class="text-sm text-zinc-300 truncate flex-1" title={session.sessionKey}>
+	<span class="text-xs sm:text-sm text-zinc-300 truncate flex-1 min-w-0" title={session.sessionKey}>
 		{sessionLabel(session)}
 	</span>
 	{#if session.model}
-		<span class="text-xs text-zinc-600 truncate max-w-40">{session.model.split('/').pop()}</span>
+		<span class="text-xs text-zinc-600 truncate max-w-20 sm:max-w-40 hidden sm:inline">{session.model.split('/').pop()}</span>
 	{/if}
 	<span class="text-xs text-zinc-500 shrink-0">{relativeTime(session.updatedAt)}</span>
 </div>

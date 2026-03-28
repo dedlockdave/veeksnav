@@ -46,7 +46,7 @@
 	{/if}
 
 	<!-- Full thread -->
-	<div class="bg-zinc-900/50 rounded-xl border border-zinc-800 p-5">
+	<div class="bg-zinc-900/50 rounded-xl border border-zinc-800 p-3 sm:p-5">
 		<h2 class="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-4">
 			Conversation Thread ({data.thread.length} message{data.thread.length === 1 ? '' : 's'})
 		</h2>

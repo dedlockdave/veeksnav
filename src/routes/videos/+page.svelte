@@ -33,7 +33,7 @@
 			<p class="text-sm">Analyzed videos from the pipeline will appear here.</p>
 		</div>
 	{:else}
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
 			{#each videos as video (video.id)}
 				<a href="/videos/{video.id}" class="block">
 					<VideoCard {video} />

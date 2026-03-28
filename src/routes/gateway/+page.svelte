@@ -58,14 +58,14 @@
 </svelte:head>
 
 <div class="space-y-8">
-	<div class="flex items-center justify-between">
+	<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 		<div>
-			<h1 class="text-3xl font-bold text-white">Gateway</h1>
+			<h1 class="text-2xl sm:text-3xl font-bold text-white">Gateway</h1>
 			<p class="text-zinc-400 text-sm mt-1">Cron jobs, agent heartbeat, and session activity</p>
 		</div>
 		{#if !loading}
 			<button
-				class="px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300 transition-colors"
+				class="self-start px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300 transition-colors"
 				onclick={fetchAll}
 			>
 				Refresh
@@ -79,7 +79,7 @@
 		<div class="text-center py-12 text-red-400">{error}</div>
 	{:else}
 		<!-- Stats bar -->
-		<div class="flex flex-wrap gap-6 text-sm">
+		<div class="flex flex-wrap gap-3 sm:gap-6 text-sm">
 			<span class="text-zinc-400">
 				<span class="text-white font-semibold">{enabledJobs.length}</span> active jobs
 			</span>

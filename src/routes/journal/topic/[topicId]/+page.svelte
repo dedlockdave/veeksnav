@@ -30,7 +30,7 @@
 		<div class="flex items-center gap-3 mt-2">
 			<div class="w-1.5 h-8 rounded-full" style="background-color: {data.topic.color}"></div>
 			<div>
-				<h1 class="text-3xl font-bold">{data.topic.name}</h1>
+				<h1 class="text-2xl sm:text-3xl font-bold">{data.topic.name}</h1>
 				{#if data.topic.description}
 					<p class="text-zinc-400 text-sm mt-0.5">{data.topic.description}</p>
 				{/if}
@@ -44,9 +44,9 @@
 	{#if threads.length === 0}
 		<div class="text-center py-12 text-zinc-500">No entries for this topic yet.</div>
 	{:else}
-		<div class="space-y-8">
+		<div class="space-y-4 sm:space-y-8">
 			{#each threads as thread (thread.threadId)}
-				<div class="bg-zinc-900/50 rounded-xl border border-zinc-800 p-5">
+				<div class="bg-zinc-900/50 rounded-xl border border-zinc-800 p-3 sm:p-5">
 					<ThreadView entries={thread.entries} />
 				</div>
 			{/each}

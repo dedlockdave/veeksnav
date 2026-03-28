@@ -54,7 +54,7 @@
 
 <a
 	href="/gateway/jobs/{job.id}"
-	class="block bg-zinc-900 rounded-xl border border-zinc-800 p-5 hover:border-zinc-700 transition-colors"
+	class="block bg-zinc-900 rounded-xl border border-zinc-800 p-3 sm:p-5 hover:border-zinc-700 transition-colors"
 >
 	<div class="flex items-start justify-between gap-3">
 		<div class="min-w-0">
@@ -76,7 +76,7 @@
 		{/if}
 	</div>
 
-	<div class="flex flex-wrap gap-4 mt-3 text-xs text-zinc-500">
+	<div class="flex flex-wrap gap-2 sm:gap-4 mt-2 sm:mt-3 text-xs text-zinc-500">
 		{#if job.state.lastRunAtMs}
 			<span>Last: {relativeTime(job.state.lastRunAtMs)}</span>
 		{/if}

@@ -91,9 +91,9 @@
 		<div class="text-center py-12 text-zinc-500">Job not found</div>
 	{:else}
 		<!-- Job header -->
-		<div class="flex items-start justify-between gap-4">
+		<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
 			<div>
-				<h1 class="text-2xl font-bold text-white">{job.name}</h1>
+				<h1 class="text-xl sm:text-2xl font-bold text-white">{job.name}</h1>
 				<p class="text-zinc-400 text-sm mt-1">{cronToHuman(job.schedule.expr, job.schedule.tz)}</p>
 				<p class="text-zinc-600 text-xs mt-0.5">
 					{job.schedule.expr} ({job.schedule.tz})
@@ -109,26 +109,26 @@
 		</div>
 
 		<!-- Status cards -->
-		<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-			<div class="bg-zinc-900 rounded-lg border border-zinc-800 p-4">
+		<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+			<div class="bg-zinc-900 rounded-lg border border-zinc-800 p-3 sm:p-4">
 				<p class="text-xs text-zinc-500">Last Run</p>
 				<p class="text-sm font-medium text-white mt-1">
 					{job.state.lastRunAtMs ? relativeTime(job.state.lastRunAtMs) : 'Never'}
 				</p>
 			</div>
-			<div class="bg-zinc-900 rounded-lg border border-zinc-800 p-4">
+			<div class="bg-zinc-900 rounded-lg border border-zinc-800 p-3 sm:p-4">
 				<p class="text-xs text-zinc-500">Next Run</p>
 				<p class="text-sm font-medium text-white mt-1">
 					{job.state.nextRunAtMs ? relativeTime(job.state.nextRunAtMs) : 'N/A'}
 				</p>
 			</div>
-			<div class="bg-zinc-900 rounded-lg border border-zinc-800 p-4">
+			<div class="bg-zinc-900 rounded-lg border border-zinc-800 p-3 sm:p-4">
 				<p class="text-xs text-zinc-500">Duration</p>
 				<p class="text-sm font-medium text-white mt-1">
 					{job.state.lastDurationMs ? formatDuration(job.state.lastDurationMs) : 'N/A'}
 				</p>
 			</div>
-			<div class="bg-zinc-900 rounded-lg border border-zinc-800 p-4">
+			<div class="bg-zinc-900 rounded-lg border border-zinc-800 p-3 sm:p-4">
 				<p class="text-xs text-zinc-500">Status</p>
 				<p
 					class="text-sm font-medium mt-1 {job.state.lastRunStatus === 'ok'
@@ -153,32 +153,32 @@
 		{/if}
 
 		<!-- Config details -->
-		<div class="bg-zinc-900 rounded-xl border border-zinc-800 p-5">
+		<div class="bg-zinc-900 rounded-xl border border-zinc-800 p-4 sm:p-5">
 			<h2 class="text-sm font-medium text-zinc-400 uppercase tracking-wider mb-3">Configuration</h2>
 			<div class="space-y-3 text-sm">
 				<div class="flex gap-2">
-					<span class="text-zinc-500 w-28 shrink-0">Agent</span>
+					<span class="text-zinc-500 w-20 sm:w-28 shrink-0">Agent</span>
 					<span class="text-zinc-300">{job.agentId}</span>
 				</div>
 				<div class="flex gap-2">
-					<span class="text-zinc-500 w-28 shrink-0">Session</span>
+					<span class="text-zinc-500 w-20 sm:w-28 shrink-0">Session</span>
 					<span class="text-zinc-300 text-xs font-mono">{job.sessionKey}</span>
 				</div>
 				<div class="flex gap-2">
-					<span class="text-zinc-500 w-28 shrink-0">Delivery</span>
+					<span class="text-zinc-500 w-20 sm:w-28 shrink-0">Delivery</span>
 					<span class="text-zinc-300"
 						>{job.delivery.mode} via {job.delivery.channel ?? 'none'}</span
 					>
 				</div>
 				{#if job.payload.model}
 					<div class="flex gap-2">
-						<span class="text-zinc-500 w-28 shrink-0">Model</span>
+						<span class="text-zinc-500 w-20 sm:w-28 shrink-0">Model</span>
 						<span class="text-zinc-300">{job.payload.model}</span>
 					</div>
 				{/if}
 				{#if job.payload.timeoutSeconds}
 					<div class="flex gap-2">
-						<span class="text-zinc-500 w-28 shrink-0">Timeout</span>
+						<span class="text-zinc-500 w-20 sm:w-28 shrink-0">Timeout</span>
 						<span class="text-zinc-300">{job.payload.timeoutSeconds}s</span>
 					</div>
 				{/if}
@@ -186,10 +186,10 @@
 		</div>
 
 		<!-- Prompt -->
-		<div class="bg-zinc-900 rounded-xl border border-zinc-800 p-5">
+		<div class="bg-zinc-900 rounded-xl border border-zinc-800 p-4 sm:p-5">
 			<h2 class="text-sm font-medium text-zinc-400 uppercase tracking-wider mb-3">Prompt</h2>
 			<pre
-				class="text-sm text-zinc-300 whitespace-pre-wrap leading-relaxed max-h-64 overflow-y-auto">{job.payload.message}</pre>
+				class="text-xs sm:text-sm text-zinc-300 whitespace-pre-wrap break-words leading-relaxed max-h-64 overflow-y-auto">{job.payload.message}</pre>
 		</div>
 
 		<!-- Run history -->
