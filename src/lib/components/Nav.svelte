@@ -9,7 +9,8 @@
 		{ href: '/videos', label: 'Reviews', match: (p: string) => p.startsWith('/videos') },
 		{ href: '/queue', label: 'Queue', match: (p: string) => p.startsWith('/queue') },
 		{ href: '/journal', label: 'Journal', match: (p: string) => p.startsWith('/journal') },
-		{ href: '/gateway', label: 'Gateway', match: (p: string) => p.startsWith('/gateway') }
+		{ href: '/gateway', label: 'Gateway', match: (p: string) => p.startsWith('/gateway') },
+		{ href: 'https://dedlockdave.github.io/datclaw/', label: 'Docs', external: true, match: () => false }
 	];
 </script>
 
@@ -54,11 +55,16 @@
 						<a
 							use:motion
 							href={link.href}
+							target={link.external ? '_blank' : undefined}
+							rel={link.external ? 'noopener noreferrer' : undefined}
 							class="relative px-3 py-1.5 rounded-lg transition-all duration-300 {link.match(page.url.pathname)
 								? 'text-white bg-zinc-800/80'
 								: 'text-zinc-400 hover:text-white hover:bg-zinc-800/40'}"
 						>
 							{link.label}
+							{#if link.external}
+								<svg class="inline-block w-3 h-3 ml-0.5 -mt-0.5 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+							{/if}
 							{#if link.match(page.url.pathname)}
 								<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-indigo-400 rounded-full"></div>
 							{/if}
@@ -74,12 +80,17 @@
 				{#each links as link}
 					<a
 						href={link.href}
+						target={link.external ? '_blank' : undefined}
+						rel={link.external ? 'noopener noreferrer' : undefined}
 						class="py-2 px-3 rounded-lg transition-all duration-300 {link.match(page.url.pathname)
 							? 'text-white bg-zinc-800/80'
 							: 'text-zinc-400 hover:text-white hover:bg-zinc-800/40'}"
 						onclick={() => (open = false)}
 					>
 						{link.label}
+						{#if link.external}
+							<svg class="inline-block w-3 h-3 ml-0.5 -mt-0.5 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+						{/if}
 					</a>
 				{/each}
 			</div>
