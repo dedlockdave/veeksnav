@@ -1,1 +1,258 @@
-[]
+[
+  {
+    "topicId": "T-daily-wellness-tracking",
+    "name": "daily-wellness-tracking",
+    "description": "Systematic monitoring of physical and mental health metrics including energy, mood, stress, exercise, nutrition, and sleep patterns.",
+    "color": "#06b6d4",
+    "entryCount": 18,
+    "latestEntryAt": "2026-03-28 04:34:25.094+00"
+  },
+  {
+    "topicId": "T-self-optimization",
+    "name": "self-optimization",
+    "description": "Using data collection and analysis to understand beneficial and destructive behaviors for better decision-making.",
+    "color": "#f59e0b",
+    "entryCount": 18,
+    "latestEntryAt": "2026-03-24 13:37:11.608+00"
+  },
+  {
+    "topicId": "T-automation-setup",
+    "name": "automation-setup",
+    "description": "Implementing a technical solution using cron jobs and Discord API to automate daily journal prompts.",
+    "color": "#ef4444",
+    "entryCount": 18,
+    "latestEntryAt": "2026-03-24 13:37:11.608+00"
+  },
+  {
+    "topicId": "T-daily-habit-tracking",
+    "name": "daily-habit-tracking",
+    "description": "Setting up a systematic daily journal to track sleep, mood, energy, behaviors and other metrics to identify patterns over time.",
+    "color": "#10b981",
+    "entryCount": 18,
+    "latestEntryAt": "2026-03-24 13:37:11.608+00"
+  },
+  {
+    "topicId": "T-sleep-optimization",
+    "name": "sleep-optimization",
+    "description": "Tracking and analyzing sleep patterns, wake times, and factors affecting sleep quality.",
+    "color": "#6366f1",
+    "entryCount": 12,
+    "latestEntryAt": "2026-03-28 14:02:37.776+00"
+  },
+  {
+    "topicId": "T-performance-tracking",
+    "name": "performance-tracking",
+    "description": "Systematic monitoring of variables like supplements, activities, and environmental factors to optimize performance outcomes.",
+    "color": "#14b8a6",
+    "entryCount": 11,
+    "latestEntryAt": "2026-03-25 23:42:14.757+00"
+  },
+  {
+    "topicId": "T-sleep-and-performance",
+    "name": "sleep-and-performance",
+    "description": "The relationship between sleep quality, duration, and tactical/cognitive performance including decision-making abilities.",
+    "color": "#ef4444",
+    "entryCount": 11,
+    "latestEntryAt": "2026-03-25 23:42:14.757+00"
+  },
+  {
+    "topicId": "T-recovery-and-stress-management",
+    "name": "recovery-and-stress-management",
+    "description": "Methods for mental and physical recovery including spiritual practices, environmental factors, and lifestyle choices.",
+    "color": "#ec4899",
+    "entryCount": 11,
+    "latestEntryAt": "2026-03-25 23:42:14.757+00"
+  },
+  {
+    "topicId": "T-daily-tracking-system",
+    "name": "daily-tracking-system",
+    "description": "Setting up and configuring morning and evening check-in routines to track sleep, energy, mood, and daily activities.",
+    "color": "#10b981",
+    "entryCount": 9,
+    "latestEntryAt": "2026-03-25 12:24:07.513+00"
+  },
+  {
+    "topicId": "T-workflow-optimization",
+    "name": "workflow-optimization",
+    "description": "Refining automated systems by adjusting timing, removing unnecessary elements, and improving data collection accuracy.",
+    "color": "#f59e0b",
+    "entryCount": 9,
+    "latestEntryAt": "2026-03-25 12:24:07.513+00"
+  },
+  {
+    "topicId": "T-routine-optimization",
+    "name": "routine-optimization",
+    "description": "Refining daily protocols and tracking systems to improve overall performance and well-being.",
+    "color": "#ef4444",
+    "entryCount": 7,
+    "latestEntryAt": "2026-03-27 04:39:59.77+00"
+  },
+  {
+    "topicId": "T-recovery-and-wellness",
+    "name": "recovery-and-wellness",
+    "description": "Discussion about sauna timing, sleep optimization, hydration, and physical recovery after training.",
+    "color": "#14b8a6",
+    "entryCount": 7,
+    "latestEntryAt": "2026-03-28 01:14:15.014+00"
+  },
+  {
+    "topicId": "T-spiritual-practice",
+    "name": "spiritual-practice",
+    "description": "Developing a consistent habit of attending adoration and exploring religious or spiritual connection.",
+    "color": "#f59e0b",
+    "entryCount": 7,
+    "latestEntryAt": "2026-03-27 04:39:59.77+00"
+  },
+  {
+    "topicId": "T-catholic-community",
+    "name": "catholic-community",
+    "description": "Looking for young adult Catholic events and parish communities for social connection.",
+    "color": "#8b5cf6",
+    "entryCount": 7,
+    "latestEntryAt": "2026-03-28 01:14:15.014+00"
+  },
+  {
+    "topicId": "T-social-dating-life",
+    "name": "social-dating-life",
+    "description": "Seeking advice on meeting women and finding social opportunities in the San Francisco area.",
+    "color": "#6366f1",
+    "entryCount": 7,
+    "latestEntryAt": "2026-03-28 01:14:15.014+00"
+  },
+  {
+    "topicId": "T-lifestyle-optimization",
+    "name": "lifestyle-optimization",
+    "description": "Analyzing the impact of various lifestyle choices like diet, substances, and activities on overall well-being and performance.",
+    "color": "#06b6d4",
+    "entryCount": 6,
+    "latestEntryAt": "2026-03-28 04:34:25.094+00"
+  },
+  {
+    "topicId": "T-passive-income-strategies",
+    "name": "passive-income-strategies",
+    "description": "Discussing multiple approaches to generate cash flow including trading bots, crypto yield strategies, and SaaS products.",
+    "color": "#8b5cf6",
+    "entryCount": 5,
+    "latestEntryAt": "2026-03-24 01:53:55.986+00"
+  },
+  {
+    "topicId": "T-ai-collaboration-business",
+    "name": "ai-collaboration-business",
+    "description": "Exploring how to work with AI tools like Claude to build profitable business systems and ventures.",
+    "color": "#6366f1",
+    "entryCount": 3,
+    "latestEntryAt": "2026-03-24 00:12:49.556+00"
+  },
+  {
+    "topicId": "T-diet-impact-on-performance",
+    "name": "diet-impact-on-performance",
+    "description": "Examining how food choices, particularly sugar intake, affect sleep quality and energy levels.",
+    "color": "#ec4899",
+    "entryCount": 3,
+    "latestEntryAt": "2026-03-27 13:12:45.261+00"
+  },
+  {
+    "topicId": "T-daily-performance-tracking",
+    "name": "daily-performance-tracking",
+    "description": "Monitoring energy, mood, and performance metrics to identify patterns and optimize daily routines.",
+    "color": "#8b5cf6",
+    "entryCount": 3,
+    "latestEntryAt": "2026-03-26 13:13:04.288+00"
+  },
+  {
+    "topicId": "T-training-recovery",
+    "name": "training-recovery",
+    "description": "Physical training, exercise performance, and recovery patterns including nutrition and energy management.",
+    "color": "#8b5cf6",
+    "entryCount": 3,
+    "latestEntryAt": "2026-03-25 04:27:42.892+00"
+  },
+  {
+    "topicId": "T-performance-optimization",
+    "name": "performance-optimization",
+    "description": "Experimenting with lifestyle variables like sleep, diet, and activities to optimize decision-making and cognitive performance.",
+    "color": "#06b6d4",
+    "entryCount": 3,
+    "latestEntryAt": "2026-03-26 23:13:10.397+00"
+  },
+  {
+    "topicId": "T-health-optimization",
+    "name": "health-optimization",
+    "description": "Focus on monitoring diet quality and nutritional choices for overall wellness improvement.",
+    "color": "#14b8a6",
+    "entryCount": 3,
+    "latestEntryAt": "2026-03-28 21:40:32.266+00"
+  },
+  {
+    "topicId": "T-gut-health-diet",
+    "name": "gut-health-diet",
+    "description": "Tracking digestive issues and their relationship to specific foods like chili and yogurt.",
+    "color": "#10b981",
+    "entryCount": 3,
+    "latestEntryAt": "2026-03-26 23:13:10.397+00"
+  },
+  {
+    "topicId": "T-group-dynamics-performance",
+    "name": "group-dynamics-performance",
+    "description": "How group settings influence individual performance through social pacing, anchoring effects, and convergence toward group averages.",
+    "color": "#ec4899",
+    "entryCount": 3,
+    "latestEntryAt": "2026-03-24 15:01:36.357+00"
+  },
+  {
+    "topicId": "T-food-tracking",
+    "name": "food-tracking",
+    "description": "Discussion about implementing daily food logging and meal tracking as part of regular check-ins.",
+    "color": "#ec4899",
+    "entryCount": 3,
+    "latestEntryAt": "2026-03-28 21:40:32.266+00"
+  },
+  {
+    "topicId": "T-energy-management",
+    "name": "energy-management",
+    "description": "Monitoring daily energy levels and identifying factors that impact physical and mental performance.",
+    "color": "#ef4444",
+    "entryCount": 3,
+    "latestEntryAt": "2026-03-28 14:02:37.776+00"
+  },
+  {
+    "topicId": "T-social-comparison-psychology",
+    "name": "social-comparison-psychology",
+    "description": "The psychological mechanisms behind how people compare themselves to others and self-sort into comfortable performance clusters.",
+    "color": "#14b8a6",
+    "entryCount": 3,
+    "latestEntryAt": "2026-03-24 15:01:36.357+00"
+  },
+  {
+    "topicId": "T-ai-business-opportunities",
+    "name": "ai-business-opportunities",
+    "description": "Exploring various ways to monetize AI capabilities through content creation, service businesses, and automation.",
+    "color": "#06b6d4",
+    "entryCount": 2,
+    "latestEntryAt": "2026-03-24 01:53:55.986+00"
+  },
+  {
+    "topicId": "T-self-reflection-routine",
+    "name": "self-reflection-routine",
+    "description": "Regular evening practice of reviewing daily experiences, wins, and personal care activities.",
+    "color": "#6366f1",
+    "entryCount": 2,
+    "latestEntryAt": "2026-03-27 04:00:05.469+00"
+  },
+  {
+    "topicId": "T-morning-routine",
+    "name": "morning-routine",
+    "description": "Daily morning check-in covering sleep quality, energy levels, mood, and daily planning.",
+    "color": "#10b981",
+    "entryCount": 1,
+    "latestEntryAt": "2026-03-28 13:00:05.015+00"
+  },
+  {
+    "topicId": "T-sleep-tracking",
+    "name": "sleep-tracking",
+    "description": "Monitoring sleep patterns including bedtime, wake time, quality, and disruptions.",
+    "color": "#f59e0b",
+    "entryCount": 1,
+    "latestEntryAt": "2026-03-28 13:00:05.015+00"
+  }
+]

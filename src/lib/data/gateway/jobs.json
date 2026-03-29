@@ -1,0 +1,212 @@
+[
+  {
+    "id": "6b2ca043-c440-4a51-a273-0d7bdb42fde4",
+    "agentId": "main",
+    "sessionKey": "agent:main:main",
+    "name": "memory-consolidation",
+    "enabled": true,
+    "createdAtMs": 1773794080022,
+    "updatedAtMs": 1774526950940,
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 3 * * 1,4",
+      "tz": "America/Los_Angeles"
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "Run memory maintenance: 1) Read all memory/*.md files older than 7 days. 2) Extract memory gems (decisions, preferences, facts, lessons) with confidence > 0.6. 3) Promote gems to appropriate MEMORY.md priority tier (P0/P1/P2). 4) Move processed files older than 30 days to memory/archive/YYYY-MM/. 5) Ensure MEMORY.md stays under 200 lines. 6) Report what was consolidated and archived.",
+      "timeoutSeconds": 300
+    },
+    "delivery": {
+      "mode": "announce",
+      "channel": "discord",
+      "channelId": "1483644401006940281"
+    },
+    "state": {
+      "nextRunAtMs": 1774864800000,
+      "lastRunAtMs": 1774519200035,
+      "lastRunStatus": "error",
+      "lastStatus": "error",
+      "lastDurationMs": 102472,
+      "lastDeliveryStatus": "unknown",
+      "consecutiveErrors": 2,
+      "lastError": "Discord recipient is required. Use \"channel:<id>\" for channels or \"user:<id>\" for DMs."
+    }
+  },
+  {
+    "id": "fa174563-6922-4826-b073-e2a2e61bc7d5",
+    "agentId": "main",
+    "sessionKey": "agent:main:discord:channel:1484567169202393169",
+    "name": "tao-strategy-review",
+    "enabled": true,
+    "createdAtMs": 1774317182436,
+    "updatedAtMs": 1774746316807,
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 18 * * *",
+      "tz": "America/Los_Angeles",
+      "staggerMs": 300000
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "Run TAO trading agent strategy review. Read repos/tao-trading-agent/ for context. Query paper_trades and live_trades from Postgres (host: postgres-memory, user: openclaw, pw: EE39NvMYAz8LGpvTLPS8y40mEcKf3nMH, db: openclaw_memory).\n\n## Live Portfolio\n- Current open positions with entry price, current price, unrealized P&L\n- Closed trades since last review: win rate, avg P&L, best/worst\n- Wallet balance (run: cd repos/tao-trading-agent && python3 -c \"import sys; sys.path.insert(0,'src'); from execution.live_trader import get_wallet_balance, get_capital_deployed; print(f'Free: {get_wallet_balance():.4f}\u03c4, Staked: {get_capital_deployed():.4f}\u03c4')\")\n\n## Paper Portfolio Deep-Dive\nThis is the main analysis section. For EACH signal strategy in paper_trades:\n- Win rate, avg P&L%, median hold time\n- Best and worst trades\n- Recent trend (improving or degrading?)\n- Whether the strategy should be promoted to live, kept paper, or shelved\nRank strategies by risk-adjusted return. Identify any new patterns.\n\n## Recommendations\n- Which paper strategies are ready for live promotion?\n- Which live strategies need parameter tweaks (SL/TP/sizing)?\n- Any new strategy ideas based on observed patterns?\n\nPost the full analysis to Discord #tao-trading-bot. Use bullet lists, not tables. Keep it thorough but readable.",
+      "timeoutSeconds": 300
+    },
+    "delivery": {
+      "mode": "announce",
+      "channel": "discord",
+      "channelId": "1484567169202393169"
+    },
+    "state": {
+      "nextRunAtMs": 1774832453696,
+      "lastRunAtMs": 1774746053735,
+      "lastRunStatus": "ok",
+      "lastStatus": "ok",
+      "lastDurationMs": 263072,
+      "lastDeliveryStatus": "delivered",
+      "consecutiveErrors": 0,
+      "lastDelivered": true
+    }
+  },
+  {
+    "id": "7ccb91f1-3777-472e-a4d4-856179b85fd6",
+    "agentId": "main",
+    "sessionKey": "agent:main:discord:channel:1483644401006940281",
+    "name": "session-monitor-hourly",
+    "enabled": true,
+    "createdAtMs": 1774401943125,
+    "updatedAtMs": 1774738864701,
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 */4 * * *",
+      "tz": "America/Los_Angeles",
+      "staggerMs": 300000
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "Run `bash /home/node/.openclaw/workspace/scripts/session-monitor.sh` and post the full output verbatim in a code block to #openclaw-configuration (channel ID: 1483644401006940281) using the discord message tool. Do not summarize or reformat \u2014 post it exactly as the script outputs it."
+    },
+    "delivery": {
+      "mode": "none"
+    },
+    "state": {
+      "nextRunAtMs": 1774753242163,
+      "lastRunAtMs": 1774738842185,
+      "lastRunStatus": "ok",
+      "lastStatus": "ok",
+      "lastDurationMs": 22516,
+      "lastDelivered": false,
+      "lastDeliveryStatus": "not-delivered",
+      "consecutiveErrors": 0
+    }
+  },
+  {
+    "id": "cef9ae32-87b7-48c7-9fed-6f31725327f9",
+    "agentId": "main",
+    "sessionKey": "agent:main:discord:channel:1483650209836957859",
+    "name": "LEO Daily X Digest",
+    "enabled": true,
+    "createdAtMs": 1774411831130,
+    "updatedAtMs": 1774666892655,
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 20 * * *",
+      "tz": "America/Los_Angeles"
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "Run the LEO social media daily digest:\n\n1. Execute: `bash /home/node/.openclaw/workspace/skills/x-poster/scripts/leo-digest-scrape.sh`\n2. Analyze the results \u2014 identify the top 3-5 trending themes/stories across the tweets\n3. For each theme: summarize what's being discussed, note the most engaged tweets, and flag any engagement opportunities (tweets worth replying to, misinformation to correct, good takes to amplify)\n4. **Include the timestamp of each tweet** \u2014 convert from UTC to Pacific Time and show it inline next to each tweet link (e.g. \"Mar 25, 2:30 PM PT\")\n5. Format as a clean digest and post to Discord channel #leo-social-media (channel ID: 1483650209836957859)\n6. Use bullet lists, not markdown tables (Discord formatting)\n7. Wrap all X links in <> to suppress embeds\n8. Keep it concise \u2014 this is a daily briefing, not a novel\n\nPost the digest directly to the Discord channel. If the scraper fails or returns no results, post a short note saying it was a quiet day.",
+      "model": "openai/gpt-4o",
+      "timeoutSeconds": 300
+    },
+    "delivery": {
+      "mode": "none"
+    },
+    "state": {
+      "nextRunAtMs": 1774753200000,
+      "lastRunAtMs": 1774666800047,
+      "lastRunStatus": "ok",
+      "lastStatus": "ok",
+      "lastDurationMs": 92608,
+      "lastDelivered": false,
+      "lastDeliveryStatus": "not-delivered",
+      "consecutiveErrors": 0
+    }
+  },
+  {
+    "id": "eae10671-b66b-4d85-9b6c-2bd188cbfcca",
+    "agentId": "main",
+    "sessionKey": "agent:main:discord:channel:1485779659407888416",
+    "name": "journal-morning-checkin",
+    "enabled": true,
+    "createdAtMs": 1774441204600,
+    "updatedAtMs": 1774702808482,
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 6 * * *",
+      "tz": "America/Los_Angeles"
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "Run this shell script and nothing else: bash /home/node/.openclaw/workspace/scripts/journal-morning.sh \u2014 then reply NO_REPLY",
+      "timeoutSeconds": 30
+    },
+    "delivery": {
+      "mode": "none"
+    },
+    "state": {
+      "nextRunAtMs": 1774789200000,
+      "lastRunAtMs": 1774702800050,
+      "lastRunStatus": "ok",
+      "lastStatus": "ok",
+      "lastDurationMs": 8432,
+      "lastDelivered": false,
+      "lastDeliveryStatus": "not-delivered",
+      "consecutiveErrors": 0
+    }
+  },
+  {
+    "id": "78c04403-b8a1-4835-8c3a-195bced82de4",
+    "agentId": "main",
+    "sessionKey": "agent:main:discord:channel:1485779659407888416",
+    "name": "journal-evening-checkin",
+    "enabled": true,
+    "createdAtMs": 1774441204613,
+    "updatedAtMs": 1774670407331,
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 21 * * *",
+      "tz": "America/Los_Angeles"
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "Run this shell script and nothing else: bash /home/node/.openclaw/workspace/scripts/journal-checkin.sh \u2014 then reply NO_REPLY",
+      "timeoutSeconds": 30
+    },
+    "delivery": {
+      "mode": "none"
+    },
+    "state": {
+      "nextRunAtMs": 1774756800000,
+      "lastRunAtMs": 1774670400044,
+      "lastRunStatus": "ok",
+      "lastStatus": "ok",
+      "lastDurationMs": 7287,
+      "lastDelivered": false,
+      "lastDeliveryStatus": "not-delivered",
+      "consecutiveErrors": 0
+    }
+  }
+]

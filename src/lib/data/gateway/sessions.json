@@ -1,0 +1,509 @@
+{
+  "total": 32,
+  "recentlyActive": 22,
+  "sessions": [
+    {
+      "sessionKey": "agent:main:discord:channel:1487590756695933072",
+      "sessionId": "6f6c5bc5-6434-4573-85fd-24ccaff58c5a",
+      "updatedAt": 1774747022318,
+      "chatType": "channel",
+      "channel": "discord",
+      "origin": {
+        "label": "Guild #liquidity-providing channel id:1487590756695933072",
+        "provider": "discord"
+      },
+      "deliveryContext": {
+        "channel": "discord",
+        "to": "channel:1487590756695933072",
+        "accountId": "default"
+      },
+      "model": null,
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:discord:channel:1484567169202393169",
+      "sessionId": "1274eb38-c83e-45d0-a780-b405d0a2861d",
+      "updatedAt": 1774747004729,
+      "chatType": "channel",
+      "channel": "discord",
+      "origin": {
+        "label": "Guild #tao-trading-bot channel id:1484567169202393169",
+        "provider": "discord"
+      },
+      "deliveryContext": {
+        "channel": "discord",
+        "to": "channel:1484567169202393169",
+        "accountId": "default"
+      },
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:discord:channel:1483644401006940281",
+      "sessionId": "63c9bf17-731e-4790-ae50-a803e2e29376",
+      "updatedAt": 1774746891591,
+      "chatType": "channel",
+      "channel": "discord",
+      "origin": {
+        "label": "Guild #openclaw-configuration channel id:1483644401006940281",
+        "provider": "discord"
+      },
+      "deliveryContext": {
+        "channel": "discord",
+        "to": "channel:1483644401006940281",
+        "accountId": "default"
+      },
+      "model": "anthropic/claude-sonnet-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:fa174563-6922-4826-b073-e2a2e61bc7d5",
+      "sessionId": "e7b71363-2c0b-4a3e-b7b4-d64513b3e7dd",
+      "updatedAt": 1774746053742,
+      "chatType": "direct",
+      "channel": null,
+      "origin": {
+        "label": "heartbeat",
+        "provider": "heartbeat"
+      },
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:fa174563-6922-4826-b073-e2a2e61bc7d5:run:e7b71363-2c0b-4a3e-b7b4-d64513b3e7dd",
+      "sessionId": "e7b71363-2c0b-4a3e-b7b4-d64513b3e7dd",
+      "updatedAt": 1774746053742,
+      "chatType": "direct",
+      "channel": null,
+      "origin": {
+        "label": "heartbeat",
+        "provider": "heartbeat"
+      },
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:discord:channel:1484325949146136596",
+      "sessionId": "08c355b2-69f8-4eca-b349-516ee08055d8",
+      "updatedAt": 1774738940549,
+      "chatType": "channel",
+      "channel": "discord",
+      "origin": {
+        "label": "1484325949146136596",
+        "provider": "discord"
+      },
+      "deliveryContext": {
+        "channel": "discord",
+        "to": "channel:1484325949146136596",
+        "accountId": "default"
+      },
+      "model": "anthropic/claude-sonnet-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:main",
+      "sessionId": "c17de2ca-1aec-4f93-a3db-7456fa0d0b06",
+      "updatedAt": 1774738856686,
+      "chatType": "direct",
+      "channel": null,
+      "origin": {
+        "label": "heartbeat",
+        "provider": "heartbeat"
+      },
+      "deliveryContext": {
+        "to": "heartbeat"
+      },
+      "model": "google/gemini-3-flash-preview",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:7ccb91f1-3777-472e-a4d4-856179b85fd6",
+      "sessionId": "66c1638a-1f2d-4b61-949f-9c5043750532",
+      "updatedAt": 1774738842186,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:7ccb91f1-3777-472e-a4d4-856179b85fd6:run:66c1638a-1f2d-4b61-949f-9c5043750532",
+      "sessionId": "66c1638a-1f2d-4b61-949f-9c5043750532",
+      "updatedAt": 1774738842186,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:discord:channel:1485779659407888416",
+      "sessionId": "ae57971a-5d01-4eaf-af86-5f8f9cfba1e8",
+      "updatedAt": 1774734031862,
+      "chatType": "channel",
+      "channel": "discord",
+      "origin": {
+        "label": "Guild #journal channel id:1485779659407888416",
+        "provider": "discord"
+      },
+      "deliveryContext": {
+        "channel": "discord",
+        "to": "channel:1485779659407888416",
+        "accountId": "default"
+      },
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:7ccb91f1-3777-472e-a4d4-856179b85fd6:run:bd2ba238-9ec4-4435-8f09-80b77b6f5c10",
+      "sessionId": "bd2ba238-9ec4-4435-8f09-80b77b6f5c10",
+      "updatedAt": 1774724442461,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:7ccb91f1-3777-472e-a4d4-856179b85fd6:run:26c21894-4639-4824-a5ce-968ac4c24600",
+      "sessionId": "26c21894-4639-4824-a5ce-968ac4c24600",
+      "updatedAt": 1774710042430,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:discord:channel:1483650209836957859",
+      "sessionId": "6e7f90e5-ddc0-414f-9943-a13bcaf252b5",
+      "updatedAt": 1774706846077,
+      "chatType": "channel",
+      "channel": "discord",
+      "origin": {
+        "label": "1483650209836957859",
+        "provider": "discord"
+      },
+      "deliveryContext": {
+        "channel": "discord",
+        "to": "channel:1483650209836957859",
+        "accountId": "default"
+      },
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:eae10671-b66b-4d85-9b6c-2bd188cbfcca",
+      "sessionId": "fd28e579-5ffc-416e-8b35-463b7e85c23a",
+      "updatedAt": 1774702800056,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:eae10671-b66b-4d85-9b6c-2bd188cbfcca:run:fd28e579-5ffc-416e-8b35-463b7e85c23a",
+      "sessionId": "fd28e579-5ffc-416e-8b35-463b7e85c23a",
+      "updatedAt": 1774702800056,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:7ccb91f1-3777-472e-a4d4-856179b85fd6:run:972df091-f04d-4789-a5c5-403eac0f1a7d",
+      "sessionId": "972df091-f04d-4789-a5c5-403eac0f1a7d",
+      "updatedAt": 1774695642468,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:7ccb91f1-3777-472e-a4d4-856179b85fd6:run:c7501668-3ecd-40df-b558-12cbbf44a085",
+      "sessionId": "c7501668-3ecd-40df-b558-12cbbf44a085",
+      "updatedAt": 1774681242336,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:78c04403-b8a1-4835-8c3a-195bced82de4",
+      "sessionId": "312791a2-254f-4fb6-b459-b22c61ee2cbe",
+      "updatedAt": 1774670400048,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:78c04403-b8a1-4835-8c3a-195bced82de4:run:312791a2-254f-4fb6-b459-b22c61ee2cbe",
+      "sessionId": "312791a2-254f-4fb6-b459-b22c61ee2cbe",
+      "updatedAt": 1774670400048,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:7ccb91f1-3777-472e-a4d4-856179b85fd6:run:191ffd51-280b-4d3f-8736-64d8fb03f8c1",
+      "sessionId": "191ffd51-280b-4d3f-8736-64d8fb03f8c1",
+      "updatedAt": 1774666894683,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:cef9ae32-87b7-48c7-9fed-6f31725327f9",
+      "sessionId": "fcea3a2c-a104-4201-9d33-0393bc217756",
+      "updatedAt": 1774666800056,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:cef9ae32-87b7-48c7-9fed-6f31725327f9:run:fcea3a2c-a104-4201-9d33-0393bc217756",
+      "sessionId": "fcea3a2c-a104-4201-9d33-0393bc217756",
+      "updatedAt": 1774666800056,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:6b2ca043-c440-4a51-a273-0d7bdb42fde4",
+      "sessionId": "0573ebe7-2f98-479e-8551-b520f42ea17f",
+      "updatedAt": 1774519200039,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:cron:f778cb15-648c-46ca-b16c-0ba4fe80724b",
+      "sessionId": "88f00865-d920-447f-83bb-531197416e8f",
+      "updatedAt": 1774411200155,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:discord:channel:1483645951225888788",
+      "sessionId": "dee4e46a-6b78-41b3-8d3f-6ae1338a373d",
+      "updatedAt": 1774311259563,
+      "chatType": "channel",
+      "channel": "discord",
+      "origin": {
+        "label": "Guild #housing-research channel id:1483645951225888788",
+        "provider": "discord"
+      },
+      "deliveryContext": {
+        "channel": "discord",
+        "to": "channel:1483645951225888788",
+        "accountId": "default"
+      },
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:discord:channel:1483689645907771482",
+      "sessionId": "fb1d5cf0-4e96-41c8-9c39-8e46bdd290d6",
+      "updatedAt": 1774268774944,
+      "chatType": "channel",
+      "channel": "discord",
+      "origin": {
+        "label": "1483689645907771482",
+        "provider": "discord"
+      },
+      "deliveryContext": {
+        "channel": "discord",
+        "to": "channel:1483689645907771482",
+        "accountId": "default"
+      },
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:subagent:bad9cf85-d6a9-4679-9fe1-9fc110304bbf",
+      "sessionId": "ea5ae64d-0304-4590-8e0b-2f801d2e41ce",
+      "updatedAt": 1774242200297,
+      "chatType": null,
+      "channel": "discord",
+      "origin": null,
+      "deliveryContext": {
+        "channel": "discord"
+      },
+      "model": null,
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:subagent:39f58afa-9769-4868-b578-c4f015fcdb5c",
+      "sessionId": "a759dc29-566c-43d4-9792-12c02e11e43f",
+      "updatedAt": 1774229365823,
+      "chatType": null,
+      "channel": "discord",
+      "origin": null,
+      "deliveryContext": {
+        "channel": "discord"
+      },
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:subagent:00a45983-e942-4ab5-a158-33fcbe2e5d48",
+      "sessionId": "ab07ad11-14ea-446e-bc52-c3d9e08bfa17",
+      "updatedAt": 1773979899915,
+      "chatType": null,
+      "channel": null,
+      "origin": null,
+      "deliveryContext": null,
+      "model": null,
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:discord:channel:989168420329242628",
+      "sessionId": "f470ed56-7f1f-48a9-ad42-bc9a90c8d4ea",
+      "updatedAt": 1773961251862,
+      "chatType": "channel",
+      "channel": "discord",
+      "origin": {
+        "label": "Guild #general channel id:989168420329242628",
+        "provider": "discord"
+      },
+      "deliveryContext": {
+        "channel": "discord",
+        "to": "channel:989168420329242628",
+        "accountId": "default"
+      },
+      "model": "anthropic/claude-opus-4.6",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:subagent:e9612f57-0516-4666-90d1-57046c801c09",
+      "sessionId": "fd4fed74-a556-4ff9-9539-f3960490249f",
+      "updatedAt": 1773870551518,
+      "chatType": null,
+      "channel": "discord",
+      "origin": null,
+      "deliveryContext": {
+        "channel": "discord"
+      },
+      "model": "openrouter/auto",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    {
+      "sessionKey": "agent:main:telegram:direct:5496998387",
+      "sessionId": "fe2b774a-fbac-449f-87d7-134eac199b6f",
+      "updatedAt": 1773765011832,
+      "chatType": "direct",
+      "channel": "telegram",
+      "origin": {
+        "label": "David (@Datjuz) id:5496998387",
+        "provider": "telegram"
+      },
+      "deliveryContext": {
+        "channel": "telegram",
+        "to": "telegram:5496998387",
+        "accountId": "default"
+      },
+      "model": "openrouter/auto",
+      "contextTokens": null,
+      "inputTokens": null,
+      "outputTokens": null
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "heartbeat": {
+    "every": "4h",
+    "model": "openai/gpt-4o-mini"
+  },
+  "primaryModel": "openrouter/anthropic/claude-opus-4.6",
+  "syncedAt": "2026-03-29T01:17:21.399908+00:00"
+}
