@@ -34,7 +34,7 @@
 	</div>
 
 	<!-- Stats bar -->
-	<div class="flex flex-wrap gap-3 sm:gap-6 text-sm">
+	<div class="flex flex-wrap gap-3 sm:gap-6 text-sm items-center">
 		<span class="text-zinc-400">
 			<span class="text-white font-semibold">{enabledJobs.length}</span> active jobs
 		</span>
@@ -46,6 +46,12 @@
 		<span class="text-zinc-400">
 			<span class="text-white font-semibold">{sessionRecentlyActive}</span> sessions active (24h)
 		</span>
+		<a
+			href="/gateway/usage"
+			class="text-xs text-indigo-400 hover:text-indigo-300 transition-colors ml-auto"
+		>
+			View Usage & Spend &rarr;
+		</a>
 	</div>
 
 	<!-- Heartbeat -->

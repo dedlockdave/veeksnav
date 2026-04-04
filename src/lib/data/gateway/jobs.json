@@ -4,9 +4,9 @@
     "agentId": "main",
     "sessionKey": "agent:main:main",
     "name": "memory-consolidation",
-    "enabled": true,
+    "enabled": false,
     "createdAtMs": 1773794080022,
-    "updatedAtMs": 1774526950940,
+    "updatedAtMs": 1774864932178,
     "schedule": {
       "kind": "cron",
       "expr": "0 3 * * 1,4",
@@ -25,13 +25,12 @@
       "channelId": "1483644401006940281"
     },
     "state": {
-      "nextRunAtMs": 1774864800000,
-      "lastRunAtMs": 1774519200035,
+      "lastRunAtMs": 1774864800027,
       "lastRunStatus": "error",
       "lastStatus": "error",
-      "lastDurationMs": 102472,
+      "lastDurationMs": 132151,
       "lastDeliveryStatus": "unknown",
-      "consecutiveErrors": 2,
+      "consecutiveErrors": 3,
       "lastError": "Discord recipient is required. Use \"channel:<id>\" for channels or \"user:<id>\" for DMs."
     }
   },
@@ -42,7 +41,7 @@
     "name": "tao-strategy-review",
     "enabled": true,
     "createdAtMs": 1774317182436,
-    "updatedAtMs": 1774746316807,
+    "updatedAtMs": 1775264901865,
     "schedule": {
       "kind": "cron",
       "expr": "0 18 * * *",
@@ -53,8 +52,9 @@
     "wakeMode": "now",
     "payload": {
       "kind": "agentTurn",
-      "message": "Run TAO trading agent strategy review. Read repos/tao-trading-agent/ for context. Query paper_trades and live_trades from Postgres (host: postgres-memory, user: openclaw, pw: EE39NvMYAz8LGpvTLPS8y40mEcKf3nMH, db: openclaw_memory).\n\n## Live Portfolio\n- Current open positions with entry price, current price, unrealized P&L\n- Closed trades since last review: win rate, avg P&L, best/worst\n- Wallet balance (run: cd repos/tao-trading-agent && python3 -c \"import sys; sys.path.insert(0,'src'); from execution.live_trader import get_wallet_balance, get_capital_deployed; print(f'Free: {get_wallet_balance():.4f}\u03c4, Staked: {get_capital_deployed():.4f}\u03c4')\")\n\n## Paper Portfolio Deep-Dive\nThis is the main analysis section. For EACH signal strategy in paper_trades:\n- Win rate, avg P&L%, median hold time\n- Best and worst trades\n- Recent trend (improving or degrading?)\n- Whether the strategy should be promoted to live, kept paper, or shelved\nRank strategies by risk-adjusted return. Identify any new patterns.\n\n## Recommendations\n- Which paper strategies are ready for live promotion?\n- Which live strategies need parameter tweaks (SL/TP/sizing)?\n- Any new strategy ideas based on observed patterns?\n\nPost the full analysis to Discord #tao-trading-bot. Use bullet lists, not tables. Keep it thorough but readable.",
-      "timeoutSeconds": 300
+      "model": "openrouter/anthropic/claude-sonnet-4.6",
+      "message": "Run TAO trading agent strategy review. Read repos/tao-trading-agent/ for context. Query paper_trades and live_trades from Postgres (host: postgres-memory, user: openclaw, pw: EE39NvMYAz8LGpvTLPS8y40mEcKf3nMH, db: openclaw_memory).\n\nIMPORTANT: To keep query results manageable, use aggregate queries (COUNT, AVG, SUM, GROUP BY) instead of selecting all rows. Only SELECT individual trades for \"last 48h\" or \"top/bottom 3\" analysis.\n\n## Live Portfolio\n- Current open positions with entry price, current price, unrealized P&L\n- Aggregate closed trade stats by strategy: win rate, avg P&L, count\n- Last 48h closed trades individually (for trend detection)\n- Wallet balance (run: cd repos/tao-trading-agent && python3 -c \"import sys; sys.path.insert(0,'src'); from execution.live_trader import get_wallet_balance, get_capital_deployed; print(f'Free: {get_wallet_balance():.4f}\u03c4, Staked: {get_capital_deployed():.4f}\u03c4')\")\n\n## Paper Portfolio Deep-Dive\nFor EACH signal strategy in paper_trades, use aggregates:\n- SELECT signal_type, COUNT(*), AVG(pnl_pct), SUM(CASE WHEN pnl_pct>0 THEN 1 ELSE 0 END) as wins FROM paper_trades WHERE status='closed' GROUP BY signal_type\n- For trend: compare last 48h stats vs all-time stats per strategy\n- Best/worst 3 trades per strategy (ORDER BY pnl_pct DESC/ASC LIMIT 3)\n- Rank strategies by risk-adjusted return (avg/stddev)\n\n## Recommendations\n- Which paper strategies are ready for live promotion?\n- Which live strategies need parameter tweaks (SL/TP/sizing)?\n- Any new strategy ideas based on observed patterns?\n\nPost the full analysis to Discord #tao-trading-bot (channel ID: 1484567169202393169). Use bullet lists, not tables. Keep it thorough but readable.",
+      "timeoutSeconds": 600
     },
     "delivery": {
       "mode": "announce",
@@ -62,11 +62,11 @@
       "channelId": "1484567169202393169"
     },
     "state": {
-      "nextRunAtMs": 1774832453696,
-      "lastRunAtMs": 1774746053735,
+      "nextRunAtMs": 1775350853696,
+      "lastRunAtMs": 1775264453757,
       "lastRunStatus": "ok",
       "lastStatus": "ok",
-      "lastDurationMs": 263072,
+      "lastDurationMs": 448108,
       "lastDeliveryStatus": "delivered",
       "consecutiveErrors": 0,
       "lastDelivered": true
@@ -77,9 +77,9 @@
     "agentId": "main",
     "sessionKey": "agent:main:discord:channel:1483644401006940281",
     "name": "session-monitor-hourly",
-    "enabled": true,
+    "enabled": false,
     "createdAtMs": 1774401943125,
-    "updatedAtMs": 1774738864701,
+    "updatedAtMs": 1775300459522,
     "schedule": {
       "kind": "cron",
       "expr": "0 */4 * * *",
@@ -96,11 +96,10 @@
       "mode": "none"
     },
     "state": {
-      "nextRunAtMs": 1774753242163,
-      "lastRunAtMs": 1774738842185,
+      "lastRunAtMs": 1775300442207,
       "lastRunStatus": "ok",
       "lastStatus": "ok",
-      "lastDurationMs": 22516,
+      "lastDurationMs": 17315,
       "lastDelivered": false,
       "lastDeliveryStatus": "not-delivered",
       "consecutiveErrors": 0
@@ -111,9 +110,9 @@
     "agentId": "main",
     "sessionKey": "agent:main:discord:channel:1483650209836957859",
     "name": "LEO Daily X Digest",
-    "enabled": true,
+    "enabled": false,
     "createdAtMs": 1774411831130,
-    "updatedAtMs": 1774666892655,
+    "updatedAtMs": 1775099100113,
     "schedule": {
       "kind": "cron",
       "expr": "0 20 * * *",
@@ -131,14 +130,14 @@
       "mode": "none"
     },
     "state": {
-      "nextRunAtMs": 1774753200000,
-      "lastRunAtMs": 1774666800047,
-      "lastRunStatus": "ok",
-      "lastStatus": "ok",
-      "lastDurationMs": 92608,
-      "lastDelivered": false,
-      "lastDeliveryStatus": "not-delivered",
-      "consecutiveErrors": 0
+      "lastRunAtMs": 1775098800042,
+      "lastRunStatus": "error",
+      "lastStatus": "error",
+      "lastDurationMs": 300071,
+      "lastDeliveryStatus": "not-requested",
+      "consecutiveErrors": 1,
+      "lastError": "cron: job execution timed out",
+      "lastErrorReason": "timeout"
     }
   },
   {
@@ -148,7 +147,7 @@
     "name": "journal-morning-checkin",
     "enabled": true,
     "createdAtMs": 1774441204600,
-    "updatedAtMs": 1774702808482,
+    "updatedAtMs": 1775307609645,
     "schedule": {
       "kind": "cron",
       "expr": "0 6 * * *",
@@ -165,14 +164,14 @@
       "mode": "none"
     },
     "state": {
-      "nextRunAtMs": 1774789200000,
-      "lastRunAtMs": 1774702800050,
+      "nextRunAtMs": 1775394000000,
+      "lastRunAtMs": 1775307600071,
       "lastRunStatus": "ok",
       "lastStatus": "ok",
-      "lastDurationMs": 8432,
-      "lastDelivered": false,
+      "lastDurationMs": 9574,
       "lastDeliveryStatus": "not-delivered",
-      "consecutiveErrors": 0
+      "consecutiveErrors": 0,
+      "lastDelivered": false
     }
   },
   {
@@ -182,7 +181,7 @@
     "name": "journal-evening-checkin",
     "enabled": true,
     "createdAtMs": 1774441204613,
-    "updatedAtMs": 1774670407331,
+    "updatedAtMs": 1775275211537,
     "schedule": {
       "kind": "cron",
       "expr": "0 21 * * *",
@@ -199,13 +198,121 @@
       "mode": "none"
     },
     "state": {
-      "nextRunAtMs": 1774756800000,
-      "lastRunAtMs": 1774670400044,
+      "nextRunAtMs": 1775361600000,
+      "lastRunAtMs": 1775275200069,
       "lastRunStatus": "ok",
       "lastStatus": "ok",
-      "lastDurationMs": 7287,
+      "lastDurationMs": 11468,
+      "lastDeliveryStatus": "not-delivered",
+      "consecutiveErrors": 0,
+      "lastDelivered": false
+    }
+  },
+  {
+    "id": "c6d3a5d3-eff9-4a06-83e3-ad894c47078e",
+    "agentId": "main",
+    "sessionKey": "agent:main:discord:channel:1487590756695933072",
+    "name": "sol-lp-agent triage (gemini-flash)",
+    "enabled": true,
+    "createdAtMs": 1774786911855,
+    "updatedAtMs": 1775311856409,
+    "schedule": {
+      "kind": "every",
+      "everyMs": 7200000,
+      "anchorMs": 1774786911855
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "model": "openrouter/google/gemini-2.5-flash-preview",
+      "timeoutSeconds": 120,
+      "message": "Run the sol-lp-agent health check and triage any issues.\n\n1. Run: `bash /home/node/.openclaw/workspace/repos/sol-lp-agent/scripts/healthcheck.sh`\n2. Read the output carefully.\n3. If STATUS is HEALTHY and errors=0: respond with just 'SOL_LP_OK' (no other output).\n4. If STATUS is NEEDS_ATTENTION OR daemon is DOWN OR there are errors in the log:\n   - Post a brief summary to Discord channel 1487688193238368286 (use DISCORD_BOT_TOKEN env var, POST to https://discord.com/api/v10/channels/1487688193238368286/messages)\n   - Then escalate by posting to the #liquidity-providing channel (ID: 1487590756695933072) with a message tagging the issue for the senior model to investigate\n   - Message format: '\ud83d\udea8 sol-lp-agent issue detected:\\n```\\n[paste relevant error lines]\\n```\\nNeeds debugging.'\n5. If daemon is DOWN: attempt restart with `cd /home/node/.openclaw/workspace/repos/sol-lp-agent && bash scripts/daemon-ctl.sh start` before escalating."
+    },
+    "delivery": {
+      "mode": "none"
+    },
+    "state": {
+      "nextRunAtMs": 1775319048739,
+      "lastRunAtMs": 1775311848739,
+      "lastRunStatus": "ok",
+      "lastStatus": "ok",
+      "lastDurationMs": 7670,
       "lastDelivered": false,
       "lastDeliveryStatus": "not-delivered",
+      "consecutiveErrors": 0
+    }
+  },
+  {
+    "id": "6f6fe5dd-663a-40cf-bd74-b2834a8be6cf",
+    "agentId": "main",
+    "sessionKey": "agent:main:discord:channel:1487590756695933072",
+    "name": "sol-lp-agent deep review (Sonnet daily)",
+    "enabled": true,
+    "createdAtMs": 1774786924264,
+    "updatedAtMs": 1775293250499,
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 2 * * *",
+      "tz": "America/Los_Angeles"
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "model": "openrouter/anthropic/claude-sonnet-4.6",
+      "timeoutSeconds": 300,
+      "message": "Daily deep review of sol-lp-agent (Meteora DLMM LP bot).\n\n1. Run health check: `bash /home/node/.openclaw/workspace/repos/sol-lp-agent/scripts/healthcheck.sh`\n2. Check daemon log for any recurring patterns: `grep -iE 'error|fail|warn|429' /home/node/.openclaw/workspace/repos/sol-lp-agent/daemon.log | tail -30`\n3. Review open positions and trade history: `cat /home/node/.openclaw/workspace/repos/sol-lp-agent/logs/positions.json && cat /home/node/.openclaw/workspace/repos/sol-lp-agent/logs/trade_history.json 2>/dev/null`\n4. Check if exit signals are firing correctly (stablecoins excluded, RSI working, etc.)\n5. If you find bugs: fix them in the source files, then restart the daemon with `bash /home/node/.openclaw/workspace/repos/sol-lp-agent/scripts/daemon-ctl.sh restart`\n6. Post a brief summary to #sol-lp-agent Discord channel (ID: 1487688193238368286) via webhook (env: DISCORD_LP_WEBHOOK). Include: daemon health, open positions summary, any fixes applied.\n7. If everything looks good, post 'Daily review complete \u2014 all systems nominal.'"
+    },
+    "delivery": {
+      "mode": "announce",
+      "channel": "discord",
+      "channelId": "1487688193238368286"
+    },
+    "state": {
+      "nextRunAtMs": 1775379600000,
+      "lastRunAtMs": 1775293200058,
+      "lastRunStatus": "ok",
+      "lastStatus": "ok",
+      "lastDurationMs": 50441,
+      "lastDeliveryStatus": "delivered",
+      "consecutiveErrors": 0,
+      "lastDelivered": true
+    }
+  },
+  {
+    "id": "1fb2bfb9-728a-4c60-8f35-bc7294f54f90",
+    "agentId": "main",
+    "sessionKey": "agent:main:discord:channel:1483645951225888788",
+    "name": "Housing Search - Bay Area Multifamily Scanner",
+    "enabled": true,
+    "createdAtMs": 1775103491468,
+    "updatedAtMs": 1775221482282,
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 9 * * 1",
+      "tz": "America/Los_Angeles"
+    },
+    "sessionTarget": "isolated",
+    "wakeMode": "now",
+    "payload": {
+      "kind": "agentTurn",
+      "message": "HOUSING SEARCH DAILY SCAN\n\nSearch for new multifamily (duplex, triplex, fourplex, 5-plex) listings in these Bay Area neighborhoods, priced $400K\u2013$800K:\n\n1. Pittsburg, CA (vacancy 1.8% \u2014 top priority)\n2. Concord, CA (vacancy 1.9%)\n3. Antioch, CA (vacancy 2.8% \u2014 has local RSO, note this)\n4. San Pablo, CA (vacancy 3.4%)\n5. Vallejo, CA (vacancy 3.9\u20135.8%)\n\nFor each listing found:\n- Calculate GRM (price \u00f7 estimated annual gross rent)\n- Note unit count, bed/bath per unit, listed rent if available\n- Note if any units are vacant vs occupied\n- Flag if GRM \u2264 11 as a strong prospect\n- Flag if GRM \u2264 10 as a HOT prospect\n\nUse web_search to check Zillow and Redfin for new/recently listed multifamily in each city. Focus on listings from the last 7 days or price reductions.\n\nPost findings to Discord #housing-research (channel ID: 1483645951225888788). If no new listings match criteria, post a brief 'No new prospects today' update. If strong prospects found, include direct listing links wrapped in <> and a quick cash flow estimate.\n\nDavid's parameters: $800K max, $200K total cash, owner-occupy possible, value-add OK, prioritize low vacancy neighborhoods.",
+      "model": "openai/gpt-4o",
+      "timeoutSeconds": 300
+    },
+    "delivery": {
+      "mode": "announce",
+      "channel": "1483645951225888788"
+    },
+    "state": {
+      "nextRunAtMs": 1775491200000,
+      "lastRunAtMs": 1775145600246,
+      "lastRunStatus": "ok",
+      "lastStatus": "ok",
+      "lastDurationMs": 226860,
+      "lastDelivered": true,
+      "lastDeliveryStatus": "delivered",
       "consecutiveErrors": 0
     }
   }

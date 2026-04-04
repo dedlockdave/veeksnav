@@ -204,6 +204,53 @@ export interface GatewayHeartbeatConfig {
 	model?: string;
 }
 
+// ── Gateway Usage ────────────────────────────────────────────────────────
+
+export interface GatewayUsageTotals {
+	allTime: number;
+	last7d: number;
+	last30d: number;
+	totalMessages: number;
+}
+
+export interface GatewayDailyUsage {
+	date: string;
+	cost: number;
+	messages: number;
+	inputTokens: number;
+	outputTokens: number;
+}
+
+export interface GatewayChannelUsage {
+	channelId: string;
+	name: string;
+	cost: number;
+	messages: number;
+}
+
+export interface GatewayDailyChannelUsage {
+	date: string;
+	channelId: string;
+	name: string;
+	cost: number;
+	messages: number;
+}
+
+export interface GatewayModelUsage {
+	model: string;
+	cost: number;
+	messages: number;
+}
+
+export interface GatewayUsageData {
+	generatedAt: string;
+	totals: GatewayUsageTotals;
+	daily: GatewayDailyUsage[];
+	channels: GatewayChannelUsage[];
+	dailyByChannel: GatewayDailyChannelUsage[];
+	models: GatewayModelUsage[];
+}
+
 /** Clip with edits already applied — ready for downstream use */
 export interface ExportClip {
 	id: string;

@@ -1,0 +1,364 @@
+{
+  "generatedAt": "2026-04-04T16:04:25.545449+00:00",
+  "totals": {
+    "allTime": 47.56,
+    "last7d": 41.33,
+    "last30d": 47.56,
+    "totalMessages": 547
+  },
+  "daily": [
+    {
+      "date": "2026-03-25",
+      "cost": 1.279,
+      "messages": 18,
+      "inputTokens": 213511,
+      "outputTokens": 4873
+    },
+    {
+      "date": "2026-03-26",
+      "cost": 1.3846,
+      "messages": 17,
+      "inputTokens": 205950,
+      "outputTokens": 7228
+    },
+    {
+      "date": "2026-03-27",
+      "cost": 0.97,
+      "messages": 8,
+      "inputTokens": 166490,
+      "outputTokens": 3631
+    },
+    {
+      "date": "2026-03-28",
+      "cost": 2.6,
+      "messages": 20,
+      "inputTokens": 485565,
+      "outputTokens": 6330
+    },
+    {
+      "date": "2026-03-29",
+      "cost": 3.5974,
+      "messages": 49,
+      "inputTokens": 619045,
+      "outputTokens": 21733
+    },
+    {
+      "date": "2026-03-30",
+      "cost": 0.8626,
+      "messages": 13,
+      "inputTokens": 117093,
+      "outputTokens": 4512
+    },
+    {
+      "date": "2026-03-31",
+      "cost": 0.417,
+      "messages": 6,
+      "inputTokens": 67417,
+      "outputTokens": 2229
+    },
+    {
+      "date": "2026-04-01",
+      "cost": 9.2092,
+      "messages": 124,
+      "inputTokens": 1532175,
+      "outputTokens": 19418
+    },
+    {
+      "date": "2026-04-02",
+      "cost": 17.6587,
+      "messages": 199,
+      "inputTokens": 2565110,
+      "outputTokens": 74534
+    },
+    {
+      "date": "2026-04-03",
+      "cost": 4.2287,
+      "messages": 26,
+      "inputTokens": 818147,
+      "outputTokens": 11624
+    },
+    {
+      "date": "2026-04-04",
+      "cost": 5.357,
+      "messages": 67,
+      "inputTokens": 907457,
+      "outputTokens": 21727
+    }
+  ],
+  "channels": [
+    {
+      "channelId": "1483645951225888788",
+      "name": "housing-research",
+      "cost": 14.68,
+      "messages": 89
+    },
+    {
+      "channelId": "other",
+      "name": "other",
+      "cost": 10.16,
+      "messages": 147
+    },
+    {
+      "channelId": "cron",
+      "name": "cron-jobs",
+      "cost": 8.33,
+      "messages": 111
+    },
+    {
+      "channelId": "1485779659407888416",
+      "name": "journal",
+      "cost": 5.86,
+      "messages": 51
+    },
+    {
+      "channelId": "1484567169202393169",
+      "name": "tao-trading-bot",
+      "cost": 4.63,
+      "messages": 63
+    },
+    {
+      "channelId": "1483689645907771482",
+      "name": "apologetics",
+      "cost": 1.81,
+      "messages": 34
+    },
+    {
+      "channelId": "1483644401006940281",
+      "name": "openclaw-configuration",
+      "cost": 1.42,
+      "messages": 40
+    },
+    {
+      "channelId": "1483650209836957859",
+      "name": "leo-social-media",
+      "cost": 0.4,
+      "messages": 5
+    },
+    {
+      "channelId": "1487590756695933072",
+      "name": "liquidity-providing",
+      "cost": 0.13,
+      "messages": 2
+    },
+    {
+      "channelId": "1484325949146136596",
+      "name": "used-cars",
+      "cost": 0.12,
+      "messages": 2
+    },
+    {
+      "channelId": "heartbeat",
+      "name": "heartbeat",
+      "cost": 0.01,
+      "messages": 3
+    }
+  ],
+  "dailyByChannel": [
+    {
+      "date": "2026-03-25",
+      "channelId": "other",
+      "name": "other",
+      "cost": 0.0142,
+      "messages": 1
+    },
+    {
+      "date": "2026-03-25",
+      "channelId": "cron",
+      "name": "cron-jobs",
+      "cost": 0.1571,
+      "messages": 2
+    },
+    {
+      "date": "2026-03-25",
+      "channelId": "1485779659407888416",
+      "name": "journal",
+      "cost": 1.1077,
+      "messages": 15
+    },
+    {
+      "date": "2026-03-26",
+      "channelId": "other",
+      "name": "other",
+      "cost": 0.7188,
+      "messages": 12
+    },
+    {
+      "date": "2026-03-26",
+      "channelId": "1485779659407888416",
+      "name": "journal",
+      "cost": 0.6658,
+      "messages": 5
+    },
+    {
+      "date": "2026-03-27",
+      "channelId": "1485779659407888416",
+      "name": "journal",
+      "cost": 0.97,
+      "messages": 8
+    },
+    {
+      "date": "2026-03-28",
+      "channelId": "1484325949146136596",
+      "name": "used-cars",
+      "cost": 0.1248,
+      "messages": 2
+    },
+    {
+      "date": "2026-03-28",
+      "channelId": "1485779659407888416",
+      "name": "journal",
+      "cost": 2.4751,
+      "messages": 18
+    },
+    {
+      "date": "2026-03-29",
+      "channelId": "1485779659407888416",
+      "name": "journal",
+      "cost": 0.6455,
+      "messages": 5
+    },
+    {
+      "date": "2026-03-29",
+      "channelId": "1483645951225888788",
+      "name": "housing-research",
+      "cost": 1.1424,
+      "messages": 10
+    },
+    {
+      "date": "2026-03-29",
+      "channelId": "1483689645907771482",
+      "name": "apologetics",
+      "cost": 1.8095,
+      "messages": 34
+    },
+    {
+      "date": "2026-03-30",
+      "channelId": "cron",
+      "name": "cron-jobs",
+      "cost": 0.8626,
+      "messages": 13
+    },
+    {
+      "date": "2026-03-31",
+      "channelId": "other",
+      "name": "other",
+      "cost": 0.417,
+      "messages": 6
+    },
+    {
+      "date": "2026-04-01",
+      "channelId": "other",
+      "name": "other",
+      "cost": 3.9249,
+      "messages": 52
+    },
+    {
+      "date": "2026-04-01",
+      "channelId": "1484567169202393169",
+      "name": "tao-trading-bot",
+      "cost": 4.629,
+      "messages": 63
+    },
+    {
+      "date": "2026-04-01",
+      "channelId": "1487590756695933072",
+      "name": "liquidity-providing",
+      "cost": 0.1271,
+      "messages": 2
+    },
+    {
+      "date": "2026-04-01",
+      "channelId": "1483644401006940281",
+      "name": "openclaw-configuration",
+      "cost": 0.1295,
+      "messages": 2
+    },
+    {
+      "date": "2026-04-01",
+      "channelId": "1483650209836957859",
+      "name": "leo-social-media",
+      "cost": 0.3988,
+      "messages": 5
+    },
+    {
+      "date": "2026-04-02",
+      "channelId": "other",
+      "name": "other",
+      "cost": 5.0892,
+      "messages": 76
+    },
+    {
+      "date": "2026-04-02",
+      "channelId": "cron",
+      "name": "cron-jobs",
+      "cost": 0.7049,
+      "messages": 14
+    },
+    {
+      "date": "2026-04-02",
+      "channelId": "1483644401006940281",
+      "name": "openclaw-configuration",
+      "cost": 0.8565,
+      "messages": 35
+    },
+    {
+      "date": "2026-04-02",
+      "channelId": "1483645951225888788",
+      "name": "housing-research",
+      "cost": 11.0081,
+      "messages": 74
+    },
+    {
+      "date": "2026-04-03",
+      "channelId": "cron",
+      "name": "cron-jobs",
+      "cost": 1.2653,
+      "messages": 18
+    },
+    {
+      "date": "2026-04-03",
+      "channelId": "1483644401006940281",
+      "name": "openclaw-configuration",
+      "cost": 0.4377,
+      "messages": 3
+    },
+    {
+      "date": "2026-04-03",
+      "channelId": "1483645951225888788",
+      "name": "housing-research",
+      "cost": 2.5258,
+      "messages": 5
+    },
+    {
+      "date": "2026-04-04",
+      "channelId": "cron",
+      "name": "cron-jobs",
+      "cost": 5.3447,
+      "messages": 64
+    },
+    {
+      "date": "2026-04-04",
+      "channelId": "heartbeat",
+      "name": "heartbeat",
+      "cost": 0.0123,
+      "messages": 3
+    }
+  ],
+  "models": [
+    {
+      "model": "claude-opus-4.6",
+      "cost": 45.55,
+      "messages": 490
+    },
+    {
+      "model": "claude-sonnet-4.6",
+      "cost": 1.93,
+      "messages": 47
+    },
+    {
+      "model": "gemini-3-flash-preview",
+      "cost": 0.08,
+      "messages": 10
+    }
+  ]
+}
